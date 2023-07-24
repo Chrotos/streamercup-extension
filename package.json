@@ -1,0 +1,38 @@
+{
+    "name": "vuejs-laravel-mix-twitch-extension-boilerplate",
+    "version": "1.1.1",
+    "description": "Simple Twitch Extension leveraging VueJS and Laravel Mix. Stemming from the official Hello World repo.",
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production",
+
+        "cert": "./services/bin/generate_cert.sh server",
+        "backend": "node services/backend/backend",
+        "frontend": "node services/frontend/frontend",
+        "services:install": "cd services/backend && npm install && cd ../frontend && npm install"
+    },
+    "keywords": [
+        "twitch",
+        "extension"
+    ],
+    "author": "Emily Rose <amorelandra@twitch.tv>, Colby Terry <colbydude@voidteam.net>",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "axios": "^0.21.1",
+        "vue": "^2.6.11"
+    },
+    "devDependencies": {
+        "laravel-mix": "^6.0.9",
+        "postcss": "^8.1",
+        "resolve-url-loader": "3.1.0",
+        "sass": "^1.32.4",
+        "sass-loader": "8.*",
+        "vue-loader": "^15.9.5",
+        "vue-template-compiler": "^2.6.12"
+    }
+}
