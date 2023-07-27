@@ -45,12 +45,12 @@ export default {
             logger('EBS request returned '+error.status+' ('+error+')');
         },
 
-        onGlobalMessage (message) {
-
+        onGlobalMessage (messageName, message) {
+          console.log(message);
         },
 
-        onPrivateMessage (message) {
-
+        onPrivateMessage (messageName, message) {
+          console.log(message);
         },
     }
 }
