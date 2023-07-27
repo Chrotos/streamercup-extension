@@ -10,7 +10,6 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-
         "cert": "./services/bin/generate_cert.sh server",
         "backend": "node services/backend/backend",
         "frontend": "node services/frontend/frontend",
@@ -24,6 +23,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "axios": "^0.21.1",
+        "pusher-js": "^8.3.0",
         "vue": "^2.6.11"
     },
     "devDependencies": {

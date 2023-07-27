@@ -66,7 +66,7 @@ export default class Authentication {
      * @return {Boolean}
      */
     isLoggedIn() {
-        return this.opaque_id[0] === 'U' ? true : false;
+        return this.user_id !== undefined;
     }
 
     /**

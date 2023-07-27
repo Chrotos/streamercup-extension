@@ -10,8 +10,8 @@ openssl req \
   -x509 \
   -subj "/C=US/ST=California/L=San Francisco/O=LULZCorp/OU=web/CN=localhost" \
   -extensions SAN \
-  -config <( cat $( [[ "Darwin" = "$(uname -s)" ]]  && echo /System/Library/OpenSSL/openssl.cnf || echo /etc/ssl/openssl.cnf  ) \
-    <(printf "[SAN]\nsubjectAltName='DNS:localhost'")) \
+#  -config <( cat $( [[ "Darwin" = "$(uname -s)" ]]  && echo /System/Library/OpenSSL/openssl.cnf || echo /etc/ssl/openssl.cnf  ) \
+#    <(printf "[SAN]\nsubjectAltName='DNS:localhost'")) \
   -keyout "${DIR}/${NAME}.key" \
   -out "${DIR}/${NAME}.crt"
 
