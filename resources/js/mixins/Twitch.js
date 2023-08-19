@@ -64,5 +64,27 @@ export default {
         contextUpdate(context, delta) {
             // @TODO when needed
         },
+
+        isMobile() {
+            return this.getPlatform() === 'mobile';
+        },
+
+        isWeb() {
+            return this.getPlatform() === 'web';
+        },
+
+        getPlatform() {
+            let params = this.getQueryParams();
+            if (!params.has('platform')) {
+                return 'web';
+            }
+
+            return params.get('platform');
+        },
+
+        getQueryParams() {
+            let queryString = window.location.search;
+            return new URLSearchParams(queryString);
+        }
     }
 }

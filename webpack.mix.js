@@ -23,5 +23,5 @@ mix.setPublicPath('public')
        uglify: false
    })
    .extract([
-       'axios', 'vue'
+       'axios', 'vue', 'phaser'
    ]);

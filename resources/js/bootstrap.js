@@ -3,9 +3,9 @@ import Pusher from "pusher-js";
 import * as PusherTypes from 'pusher-js';
 
 const APP_KEY = 'KEY';
-const WS_HOST = '127.0.0.1';
+const WS_HOST = 'streamercup-socket.chrotos.net';
 const WS_PORT = 6001;
-const AUTHORIZATION_ENDPOINT = 'http://127.0.0.1:8000/api/socket';
+const AUTHORIZATION_ENDPOINT = 'https://streamercup-api.chrotos.net/api/socket';
 
 window.logger = process.env.NODE_ENV === 'development' ? console.log.bind(console) : () => { };
 

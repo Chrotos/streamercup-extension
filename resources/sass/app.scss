@@ -10,3 +10,22 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
+
+.viewer.dark {
+    color: white;
+}
+
+.viewer.light {
+    color: black;
+}
+
+body.light.mobile {
+    background-color: white;
+}
+body.dark.mobile {
+    background-color: black;
+}
+
+.web {
+
+}
