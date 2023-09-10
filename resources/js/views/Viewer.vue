@@ -1,6 +1,8 @@
 <template>
     <div v-bind:class="mainClassName">
-      <CollectSheeps v-if="sheep.gates?.length" v-model:sheep="sheep"></CollectSheeps>
+      <CollectSheeps v-if="sheep.gates?.length" v-bind:sheep="sheep" />
+      <SharpPath v-if="sharpPath.walls?.length" v-bind:walls="sharpPath.walls" />
+      <SoundSequence v-if="soundSequence?.players.length" v-bind:sequence="soundSequence" />
       <div v-if="voting?.title && voting?.options">
         <h2 style="text-align: center">{{ voting.title }} : {{ countDown }}s</h2>
         <table style="table-layout: fixed">
@@ -32,10 +34,12 @@
 <script>
 import Twitch from '../mixins/Twitch';
 import CollectSheeps from '../components/CollectSheeps.vue';
+import SoundSequence from "../components/SoundSequence.vue";
+import SharpPath from "../components/SharpPath.vue";
 
 export default {
     name: 'Viewer',
-    components: {CollectSheeps},
+    components: {SharpPath, SoundSequence, CollectSheeps},
 
     mixins: [
         Twitch
@@ -56,6 +60,8 @@ export default {
             voted: false,
             countDown: 0,
             sheep: {gates: []},
+            sharpPath: {walls: []},
+            soundSequence: {players: []},
             theme: 'light',
             platform: 'web',
         }
@@ -118,11 +124,26 @@ export default {
                   this.countDownTimer();
                 }
                 this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
                 break;
               case 'sheep':
                 this.voting = {};
                 this.sheep = message ?? {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
                 break;
+              case 'sound_sequence':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = message ?? {players: []};
+                this.sharpPath = {walls: []};
+                break;
+              case 'sharp_path':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = message ?? {walls: []};
             }
         },
 

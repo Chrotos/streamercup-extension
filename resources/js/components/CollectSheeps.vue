@@ -88,6 +88,7 @@ export default {
       scale: {
         mode: Phaser.Scale.FIT
       },
+      banner: false,
       scene: {
         preload: function () {
           this.load.image('area', 'img/collect_sheeps.png');
