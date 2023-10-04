@@ -19,7 +19,7 @@ const gapWidth = 10;
 
 export default {
 
-  name: 'SoundSequence',
+  name: 'PuzzlePortrait',
   data() {
     return {
 
@@ -73,7 +73,7 @@ export default {
 
             this.input.setDraggable(card);
           })
-          this.add.text(600 / 2, 30, 'Sound Sequenz', {font: '40px Ariel', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 30, 'Puzzle Porträt', {font: '40px Ariel', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           cards.forEach(card => this.children.bringToTop(card));
 
@@ -125,7 +125,7 @@ export default {
               }
             }
 
-            axios.post('https://streamercup-api.chrotos.net/api/game/13/', null, {
+            axios.post('https://streamercup-api.chrotos.net/api/game/45/', null, {
               params: {
                 order: order.join('')
               }

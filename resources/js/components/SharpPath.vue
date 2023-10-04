@@ -216,6 +216,7 @@ export default {
               }
             }
           })
+          this.add.text(600 / 2, 30, 'Scharfe Schneise', {font: '40px Ariel', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           this.input.setPollOnMove();
           this.input.setTopOnly(true);
@@ -250,6 +251,7 @@ export default {
               let id = gameObject.wall;
               axios.post(`https://streamercup-api.chrotos.net/api/game/37/${id}`).catch(error => {
                 gameObject.setFillStyle(defaultFillStyle.color, defaultFillStyle.alpha);
+                gameObject.selected = false;
               });
               gameObject.setFillStyle(selectedFillStyle.color, selectedFillStyle.alpha);
               gameObject.selected = true;
