@@ -6,6 +6,7 @@
       <PuzzlePortrait v-if="puzzlePortrait?.players?.length" v-bind:sequence="puzzlePortrait" />
       <TrafficLight style="margin-left: 15%" v-if="trafficLight?.bridges?.length" v-bind:bridges="trafficLight.bridges" />
       <ChooseWisely v-if="chooseWisely?.platforms?.length" v-bind:platforms="chooseWisely.platforms" />
+      <SweetsCatcher v-if="sweetsCatcher?.conditions?.length" v-bind:conditions="sweetsCatcher.conditions" />
 
       <div v-if="voting?.title && voting?.options">
         <h2 style="text-align: center">{{ voting.title }} : {{ countDown }}s</h2>
@@ -43,10 +44,11 @@ import SharpPath from "../components/SharpPath.vue";
 import PuzzlePortrait from "../components/PuzzlePortrait.vue";
 import TrafficLight from "../components/TrafficLight.vue";
 import ChooseWisely from "../components/ChooseWisely.vue";
+import SweetsCatcher from "../components/SweetsCatcher.vue";
 
 export default {
     name: 'Viewer',
-    components: {ChooseWisely, TrafficLight, PuzzlePortrait, SharpPath, SoundSequence, CollectSheeps},
+    components: {SweetsCatcher, ChooseWisely, TrafficLight, PuzzlePortrait, SharpPath, SoundSequence, CollectSheeps},
 
     mixins: [
         Twitch
@@ -72,6 +74,7 @@ export default {
             puzzlePortrait: {players: []},
             trafficLight: {bridges: []},
             chooseWisely: {platforms: []},
+            sweetsCatcher: {conditions: []},
             theme: 'light',
             platform: 'web',
         }
@@ -139,6 +142,7 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
                 break;
               case 'sheep':
                 this.voting = {};
@@ -147,6 +151,7 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
                 this.sheep = message ?? {gates:[]};
                 break;
               case 'sound_sequence':
@@ -156,6 +161,7 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
                 this.soundSequence = message ?? {players: []};
                 break;
               case 'sharp_path':
@@ -165,6 +171,7 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
                 this.sharpPath = message ?? {walls: []};
                 break;
               case 'puzzle_portrait':
@@ -174,6 +181,7 @@ export default {
                 this.sharpPath = {walls: []};
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
                 this.puzzlePortrait = message ?? {players: []};
                 break;
               case 'traffic_light':
@@ -183,6 +191,7 @@ export default {
                 this.sharpPath = {walls: []};
                 this.puzzlePortrait = {players: []};
                 this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
                 this.trafficLight = message ?? {bridges: []};
                 break;
               case 'choose_wisely':
@@ -192,7 +201,18 @@ export default {
                 this.sharpPath = {walls: []};
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
+                this.sweetsCatcher = {conditions: []};
                 this.chooseWisely = message ?? {platforms: []};
+                break;
+              case 'sweets_catcher':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
+                this.puzzlePortrait = {players: []};
+                this.trafficLight = {bridges: []};
+                this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = message ?? {conditions: []};
                 break;
             }
         },
