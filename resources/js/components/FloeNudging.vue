@@ -1,0 +1,79 @@
+<template>
+  <div style="display: inline-block">
+    <h1 style="margin-left: 25%; width: 100%">Schollen Schubser</h1>
+    <div style="width: 100%">
+      <button v-for="player in players" @click="vote(player.id)" :disabled="voted === player.id">
+          <img :src="player.avatar" :data-disabled="voted === player.id" />
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+
+  name: 'FloeNudging',
+  data() {
+    return {
+      voted: null
+    }
+  },
+
+  props: ['players'],
+
+  mounted() {
+
+  },
+
+  methods: {
+    vote (player) {
+      this.voted = player;
+      this.$http.post(`https://streamercup-api.chrotos.net/api/game/50/${player}`).catch(error => {
+        if (error.response?.status === 409) {
+          this.voted = player;
+          return;
+        }
+        if (error.response?.status === 403) {
+          this.voting = null;
+        }
+
+        this.voted = null;
+      });
+    },
+  }
+}
+</script>
+
+<style scoped>
+table {
+  width: 100%;
+}
+td {
+  width: 100px;
+}
+tr {
+  width: 100px;
+}
+
+img {
+  margin: 0;
+  border: 0;
+  width: 100px;
+  padding: 0
+}
+
+button {
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  border: 0;
+  background: none
+}
+button:not(:disabled):not(:hover) > img {
+  -webkit-filter: grayscale(100%);
+}
+button:hover > img {
+  -webkit-filter: grayscale(50%);
+}
+</style>

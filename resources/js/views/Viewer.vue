@@ -7,6 +7,7 @@
       <TrafficLight style="margin-left: 15%" v-if="trafficLight?.bridges?.length" v-bind:bridges="trafficLight.bridges" />
       <ChooseWisely v-if="chooseWisely?.platforms?.length" v-bind:platforms="chooseWisely.platforms" />
       <SweetsCatcher v-if="sweetsCatcher?.conditions?.length" v-bind:conditions="sweetsCatcher.conditions" />
+      <FloeNudging v-if="floeNudging?.players?.length" v-bind:players="floeNudging.players" />
 
       <div v-if="voting?.title && voting?.options">
         <h2 style="text-align: center">{{ voting.title }} : {{ countDown }}s</h2>
@@ -45,10 +46,13 @@ import PuzzlePortrait from "../components/PuzzlePortrait.vue";
 import TrafficLight from "../components/TrafficLight.vue";
 import ChooseWisely from "../components/ChooseWisely.vue";
 import SweetsCatcher from "../components/SweetsCatcher.vue";
+import FloeNudging from "../components/FloeNudging.vue";
 
 export default {
     name: 'Viewer',
-    components: {SweetsCatcher, ChooseWisely, TrafficLight, PuzzlePortrait, SharpPath, SoundSequence, CollectSheeps},
+    components: {
+      FloeNudging, SweetsCatcher, ChooseWisely, TrafficLight, PuzzlePortrait, SharpPath, SoundSequence, CollectSheeps
+    },
 
     mixins: [
         Twitch
@@ -75,6 +79,7 @@ export default {
             trafficLight: {bridges: []},
             chooseWisely: {platforms: []},
             sweetsCatcher: {conditions: []},
+            floeNudging: {players: []},
             theme: 'light',
             platform: 'web',
         }
@@ -143,6 +148,7 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 break;
               case 'sheep':
                 this.voting = {};
@@ -152,6 +158,7 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 this.sheep = message ?? {gates:[]};
                 break;
               case 'sound_sequence':
@@ -162,6 +169,7 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 this.soundSequence = message ?? {players: []};
                 break;
               case 'sharp_path':
@@ -172,6 +180,7 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 this.sharpPath = message ?? {walls: []};
                 break;
               case 'puzzle_portrait':
@@ -182,6 +191,7 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 this.puzzlePortrait = message ?? {players: []};
                 break;
               case 'traffic_light':
@@ -192,6 +202,7 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 this.trafficLight = message ?? {bridges: []};
                 break;
               case 'choose_wisely':
@@ -202,6 +213,7 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
                 this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
                 this.chooseWisely = message ?? {platforms: []};
                 break;
               case 'sweets_catcher':
@@ -212,7 +224,19 @@ export default {
                 this.puzzlePortrait = {players: []};
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
+                this.floeNudging = {players: []};
                 this.sweetsCatcher = message ?? {conditions: []};
+                break;
+              case 'floe_nudging':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
+                this.puzzlePortrait = {players: []};
+                this.trafficLight = {bridges: []};
+                this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
+                this.floeNudging = message ?? {players: []};
                 break;
             }
         },
