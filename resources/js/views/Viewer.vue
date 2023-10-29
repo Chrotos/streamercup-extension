@@ -8,6 +8,9 @@
       <ChooseWisely v-if="chooseWisely?.platforms?.length" v-bind:platforms="chooseWisely.platforms" />
       <SweetsCatcher v-if="sweetsCatcher?.conditions?.length" v-bind:conditions="sweetsCatcher.conditions" />
       <FloeNudging v-if="floeNudging?.players?.length" v-bind:players="floeNudging.players" />
+      <EstimateSheeps v-if="estimateSheeps?.conditions?.length" v-bind:conditions="estimateSheeps.conditions" />
+      <FoldFigures v-if="foldFigures?.active"></FoldFigures>
+      <RadiusEraser v-if="radiusEraser?.conditions?.length" v-bind:conditions="radiusEraser.conditions" />
 
       <div v-if="voting?.title && voting?.options">
         <h2 style="text-align: center">{{ voting.title }} : {{ countDown }}s</h2>
@@ -47,10 +50,16 @@ import TrafficLight from "../components/TrafficLight.vue";
 import ChooseWisely from "../components/ChooseWisely.vue";
 import SweetsCatcher from "../components/SweetsCatcher.vue";
 import FloeNudging from "../components/FloeNudging.vue";
+import EstimateSheeps from "../components/EstimateSheeps.vue";
+import FoldFigures from "../components/FoldFigures.vue";
+import RadiusEraser from "../components/RadiusEraser.vue";
 
 export default {
     name: 'Viewer',
     components: {
+      RadiusEraser,
+      FoldFigures,
+      EstimateSheeps,
       FloeNudging, SweetsCatcher, ChooseWisely, TrafficLight, PuzzlePortrait, SharpPath, SoundSequence, CollectSheeps
     },
 
@@ -80,6 +89,9 @@ export default {
             chooseWisely: {platforms: []},
             sweetsCatcher: {conditions: []},
             floeNudging: {players: []},
+            estimateSheeps: {conditions: []},
+            foldFigures: {active: false},
+            radiusEraser: {conditions: []},
             theme: 'light',
             platform: 'web',
         }
@@ -149,6 +161,8 @@ export default {
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 break;
               case 'sheep':
                 this.voting = {};
@@ -159,6 +173,8 @@ export default {
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.sheep = message ?? {gates:[]};
                 break;
               case 'sound_sequence':
@@ -170,6 +186,8 @@ export default {
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.soundSequence = message ?? {players: []};
                 break;
               case 'sharp_path':
@@ -181,6 +199,8 @@ export default {
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.sharpPath = message ?? {walls: []};
                 break;
               case 'puzzle_portrait':
@@ -192,6 +212,8 @@ export default {
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.puzzlePortrait = message ?? {players: []};
                 break;
               case 'traffic_light':
@@ -203,6 +225,8 @@ export default {
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.trafficLight = message ?? {bridges: []};
                 break;
               case 'choose_wisely':
@@ -214,6 +238,8 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.sweetsCatcher = {conditions: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.chooseWisely = message ?? {platforms: []};
                 break;
               case 'sweets_catcher':
@@ -225,6 +251,8 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.sweetsCatcher = message ?? {conditions: []};
                 break;
               case 'floe_nudging':
@@ -236,8 +264,50 @@ export default {
                 this.trafficLight = {bridges: []};
                 this.chooseWisely = {platforms: []};
                 this.sweetsCatcher = {conditions: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false}
                 this.floeNudging = message ?? {players: []};
                 break;
+              case 'estimate_sheeps':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
+                this.puzzlePortrait = {players: []};
+                this.trafficLight = {bridges: []};
+                this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
+                this.foldFigures = {active: false}
+                this.estimateSheeps = message ?? {conditions: []};
+                break;
+              case 'fold_figures':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
+                this.puzzlePortrait = {players: []};
+                this.trafficLight = {bridges: []};
+                this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = message ?? {active: false};
+                break
+              case 'radius_eraser':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
+                this.puzzlePortrait = {players: []};
+                this.trafficLight = {bridges: []};
+                this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false};
+                this.radiusEraser = message ?? {conditions: []};
+                break
             }
         },
 
