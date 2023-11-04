@@ -76,7 +76,7 @@ export default {
         getPlatform() {
             let params = this.getQueryParams();
             if (!params.has('platform')) {
-                return 'web';
+                return 'mobile';
             }
 
             return params.get('platform');

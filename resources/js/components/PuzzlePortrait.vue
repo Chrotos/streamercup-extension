@@ -5,11 +5,6 @@
 <script>
 import * as Phaser from 'phaser';
 
-let game;
-const zones = [];
-const cards = [];
-const order = [];
-
 const startX = 100;
 const endX = 500;
 const cardY = 200;
@@ -22,7 +17,7 @@ export default {
   name: 'PuzzlePortrait',
   data() {
     return {
-
+      game: null
     }
   },
 
@@ -36,6 +31,9 @@ export default {
 
   mounted() {
     let area;
+    const zones = [];
+    const cards = [];
+    const order = [];
     const players = this.sequence.players;
     const gaps = (players.length - 1);
     const steps = (endX - startX - (gaps * gapWidth)) / players.length;
@@ -73,7 +71,7 @@ export default {
 
             this.input.setDraggable(card);
           })
-          this.add.text(600 / 2, 30, 'Puzzle Porträt', {font: '40px Ariel', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 30, 'Puzzle Porträt', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           cards.forEach(card => this.children.bringToTop(card));
 

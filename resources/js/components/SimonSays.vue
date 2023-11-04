@@ -1,0 +1,82 @@
+<template>
+  <div style="display: inline-block">
+    <h1 style="margin-left: 55%; width: 100%">Simon Says</h1>
+    <div style="margin-left: 50%; width: 100%">
+      <button v-for="condition in conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
+        <figure>
+          <img :src="`img/${condition.icon}.png`" :alt="condition.name" :data-disabled="voted === condition.name" />
+          <figcaption style="color: white; text-align: center; width: 100%">{{ condition.name }}</figcaption>
+        </figure>
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+
+  name: 'SimonSays',
+  data() {
+    return {
+      voted: null
+    }
+  },
+
+  props: ['conditions'],
+
+  mounted() {
+
+  },
+
+  methods: {
+    vote (condition) {
+      this.voted = condition;
+      this.$http.post(`https://streamercup-api.chrotos.net/api/game/38/${condition}`).catch(error => {
+        if (error.response?.status === 409) {
+          this.voted = condition;
+          return;
+        }
+
+        this.voted = null;
+      });
+    },
+  }
+}
+</script>
+
+<style scoped>
+table {
+  width: 100%;
+}
+td {
+  width: 100px;
+}
+tr {
+  width: 100px;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  border: 0;
+  width: 100px;
+  padding: 0
+}
+
+button {
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  border: 0;
+  background: none
+}
+button:not(:disabled):not(:hover) > figure > img {
+  -webkit-filter: grayscale(100%);
+}
+button:hover > figure > img {
+  -webkit-filter: grayscale(50%);
+}
+</style>

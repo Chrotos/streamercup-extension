@@ -77,9 +77,6 @@ export default {
           this.voted = condition;
           return;
         }
-        if (error.response?.status === 403) {
-          this.voting = null;
-        }
 
         this.voted = null;
       });

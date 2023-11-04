@@ -57,15 +57,13 @@ const gates = [
   },
 ];
 
-const clickables = [];
-let game;
-
 export default {
 
   name: 'CollectSheeps',
   data() {
     return {
-      voted: -1
+      voted: -1,
+      game: null
     }
   },
 
@@ -79,6 +77,7 @@ export default {
 
   mounted() {
     let area;
+    const clickables = [];
 
     const config = {
       type: Phaser.CANVAS,
@@ -107,7 +106,7 @@ export default {
             clickables.push(clickable);
           })
 
-          this.add.text(600 / 2, 20, 'Schafe Sammeln', {font: '40px Ariel', fill: '#000000', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 20, 'Schafe Sammeln', {font: '40px Arial', fill: '#000000', align: "center"}).setOrigin(0.5, 0.5);
 
           this.input.setPollOnMove();
           this.input.on('gameobjectover', function (pointer, gameObject) {

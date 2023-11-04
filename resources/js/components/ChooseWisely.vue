@@ -29,15 +29,13 @@ const platformPositions = [
   },
 ];
 
-const clickables = [];
-let game;
-
 export default {
 
   name: 'ChooseWisely',
   data() {
     return {
-      voted: -1
+      voted: -1,
+      game: null
     }
   },
 
@@ -50,6 +48,7 @@ export default {
   },
 
   mounted() {
+    const clickables = [];
     let area;
     let platforms = this.platforms;
 
@@ -86,7 +85,7 @@ export default {
               }
             }
           })
-          this.add.text(600 / 2, 30, 'Wähle Weise', {font: '40px Ariel', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 30, 'Wähle Weise', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           this.input.setPollOnMove();
           this.input.setTopOnly(true);

@@ -34,9 +34,6 @@ export default {
           this.voted = player;
           return;
         }
-        if (error.response?.status === 403) {
-          this.voting = null;
-        }
 
         this.voted = null;
       });
