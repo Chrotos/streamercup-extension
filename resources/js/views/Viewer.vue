@@ -15,6 +15,7 @@
       <ComboCannon v-if="comboCannon?.active" :key="'unique'" />
       <TimeCounter v-if="timeCounter?.conditions?.length" v-bind:conditions="timeCounter.conditions" :key="'unique'" />
       <CopyStructures v-if="copyStructures?.structures?.length" v-bind:structures="copyStructures.structures" :key="'unique'" />
+      <MatchingPlatform v-if="matchingPlatform?.platforms?.length" v-bind:platforms="matchingPlatform.platforms" :key="'unique'" />
 
       <div v-if="voting?.title && voting?.options">
         <h2 style="text-align: center">{{ voting.title }} : {{ countDown }}s</h2>
@@ -64,10 +65,12 @@ import CopyStructures from "../components/CopyStructures.vue";
 import Pusher from "pusher-js";
 import * as PusherTypes from 'pusher-js';
 import Configuration from "../mixins/Configuration";
+import MatchingPlatform from "../components/MatchingPlatform.vue";
 
 export default {
     name: 'Viewer',
     components: {
+      MatchingPlatform,
       CopyStructures, TimeCounter, ComboCannon, SimonSays, RadiusEraser, FoldFigures, EstimateSheeps,
       FloeNudging, SweetsCatcher, ChooseWisely, TrafficLight, PuzzlePortrait, SharpPath, SoundSequence, CollectSheeps
     },
@@ -106,6 +109,7 @@ export default {
             comboCannon: {active: false},
             timeCounter: {conditions: []},
             copyStructures: {structures: []},
+            matchingPlatform: {platforms: []},
             theme: 'light',
             platform: 'web',
         }
@@ -183,6 +187,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 break;
               case 'sheep':
                 this.voting = {};
@@ -199,6 +204,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.sheep = message ?? {gates:[]};
                 break;
               case 'sound_sequence':
@@ -216,6 +222,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.soundSequence = message ?? {players: []};
                 break;
               case 'sharp_path':
@@ -233,6 +240,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.sharpPath = message ?? {walls: []};
                 break;
               case 'puzzle_portrait':
@@ -250,6 +258,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.puzzlePortrait = message ?? {players: []};
                 break;
               case 'traffic_light':
@@ -267,6 +276,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.trafficLight = message ?? {bridges: []};
                 break;
               case 'choose_wisely':
@@ -284,6 +294,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.chooseWisely = message ?? {platforms: []};
                 break;
               case 'sweets_catcher':
@@ -301,6 +312,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.sweetsCatcher = message ?? {conditions: []};
                 break;
               case 'floe_nudging':
@@ -318,6 +330,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.floeNudging = message ?? {players: []};
                 break;
               case 'estimate_sheeps':
@@ -335,6 +348,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.estimateSheeps = message ?? {conditions: []};
                 break;
               case 'fold_figures':
@@ -352,6 +366,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.foldFigures = message ?? {active: false};
                 break
               case 'radius_eraser':
@@ -370,6 +385,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.radiusEraser = message ?? {conditions: []};
                 break
               case 'simon_says':
@@ -388,6 +404,7 @@ export default {
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.simonSays = message ?? {conditions: []};
                 break;
               case 'combo_cannon':
@@ -406,6 +423,7 @@ export default {
                 this.simonSays = {conditions: []};
                 this.timeCounter = {conditions: []};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.comboCannon = message ?? {active: false};
                 break;
               case 'time_counter':
@@ -424,6 +442,7 @@ export default {
                 this.simonSays = {conditions: []};
                 this.comboCannon = {active: false};
                 this.copyStructures = {structures: []};
+                this.matchingPlatform = {platforms: []};
                 this.timeCounter = message ?? {conditions: []};
                 break;
               case 'copy_structures':
@@ -442,7 +461,27 @@ export default {
                 this.simonSays = {conditions: []};
                 this.comboCannon = {active: false};
                 this.timeCounter = {conditions: []};
+                this.matchingPlatform = {platforms: []};
                 this.copyStructures = message ?? {structures: []};
+                break;
+              case 'matching_platform':
+                this.voting = {};
+                this.sheep = {gates:[]};
+                this.soundSequence = {players: []};
+                this.sharpPath = {walls: []};
+                this.puzzlePortrait = {players: []};
+                this.trafficLight = {bridges: []};
+                this.chooseWisely = {platforms: []};
+                this.sweetsCatcher = {conditions: []};
+                this.floeNudging = {players: []};
+                this.estimateSheeps = {conditions: []};
+                this.foldFigures = {active: false};
+                this.radiusEraser = {conditions: []};
+                this.simonSays = {conditions: []};
+                this.comboCannon = {active: false};
+                this.timeCounter = {conditions: []};
+                this.copyStructures = {structures: []};
+                this.matchingPlatform = message ?? {platforms: []};
                 break;
             }
         },
