@@ -85,6 +85,6 @@ export default {
         getQueryParams() {
             let queryString = window.location.search;
             return new URLSearchParams(queryString);
-        }
+        },
     }
 }

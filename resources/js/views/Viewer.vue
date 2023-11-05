@@ -61,6 +61,9 @@ import SimonSays from "../components/SimonSays.vue";
 import ComboCannon from "../components/ComboCannon.vue";
 import TimeCounter from "../components/TimeCounter.vue";
 import CopyStructures from "../components/CopyStructures.vue";
+import Pusher from "pusher-js";
+import * as PusherTypes from 'pusher-js';
+import Configuration from "../mixins/Configuration";
 
 export default {
     name: 'Viewer',
@@ -70,7 +73,8 @@ export default {
     },
 
     mixins: [
-        Twitch
+        Twitch,
+        Configuration
     ],
 
     computed: {
@@ -114,7 +118,8 @@ export default {
     methods: {
         vote (gameId) {
           this.voted = true;
-            this.$http.post(`https://streamercup-api.chrotos.net/api/vote/${gameId}`).catch(error => {
+            //this.$http.post(`https://streamercup-api.chrotos.net/api/vote/${gameId}`).catch(error => {
+            this.$http.post(this.getApiUrl(`vote/${gameId}`)).catch(error => {
               if (error.response.status === 409) {
                 this.voted = true;
                 return;
@@ -130,6 +135,7 @@ export default {
         boot () {
             logger('Enabling...');
 
+            this.connectSocket();
             if (this.auth.isLoggedIn()) {
               window.pusher.subscribe('presence-' + this.auth.getUserId()).bind_global(this.onPrivateMessage);
             } else {
@@ -466,6 +472,22 @@ export default {
                 }, 1000);
             }
         },
+
+        connectSocket() {
+          window.pusher = new Pusher(this.getSocketKey(), {
+            wsHost: this.getSocketBaseUrl(),
+            wsPort: this.getSocketPort(),
+            cluster: '',
+            forceTLS: false,
+            disableStats: true,
+            enabledTransports: ['ws', 'wss'],
+            channelAuthorization: {
+              transport: 'ajax',
+              endpoint: this.getSocketAuthorizationUrl(),
+              headersProvider: () => window.axios.defaults.headers.common
+            },
+          });
+        }
     }
 }
 </script>

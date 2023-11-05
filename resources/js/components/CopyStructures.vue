@@ -14,6 +14,8 @@
 
 <script>
 
+import Configuration from "../mixins/Configuration";
+
 export default {
 
   name: 'CopyStructures',
@@ -25,6 +27,10 @@ export default {
 
   props: ['structures'],
 
+  mixins: [
+      Configuration
+  ],
+
   mounted() {
 
   },
@@ -32,7 +38,8 @@ export default {
   methods: {
     vote (structure) {
       this.voted = structure;
-      this.$http.post(`https://streamercup-api.chrotos.net/api/game/14/${structure}`).catch(error => {
+      //this.$http.post(`https://streamercup-api.chrotos.net/api/game/14/${structure}`).catch(error => {
+      this.$http.post(this.getApiUrl(`game/14/${structure}`)).catch(error => {
         if (error.response?.status === 409) {
           this.voted = structure;
           return;

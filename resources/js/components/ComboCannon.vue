@@ -4,6 +4,7 @@
 
 <script>
 import * as Phaser from 'phaser';
+import Configuration from "../mixins/Configuration";
 
 const diceDimension = 150;
 const diceFactor = diceDimension / 64;
@@ -22,6 +23,10 @@ export default {
 
   props: [],
 
+  mixins: [
+      Configuration
+  ],
+
   beforeDestroy() {
     if (this.game) {
       this.game.destroy(true, false);
@@ -29,6 +34,8 @@ export default {
   },
 
   mounted() {
+    let apiUrl = this.getApiUrl('game/36/');
+
     let area;
     let dices = [];
     let currentDiceNumbers = [1,1,1,1];
@@ -65,7 +72,8 @@ export default {
             rolled = true;
             button.destroy();
 
-            axios.post('https://streamercup-api.chrotos.net/api/game/36/', null, {
+            //axios.post('https://streamercup-api.chrotos.net/api/game/36/', null, {
+            axios.post(apiUrl, null, {
               params: {
                 dices: currentDiceNumbers.join('')
               }

@@ -4,6 +4,7 @@
 
 <script>
 import * as Phaser from 'phaser';
+import Configuration from "../mixins/Configuration";
 
 const defaultFillStyle = {
   color: 0x6666ff,
@@ -89,6 +90,10 @@ export default {
 
   props: ['bridges'],
 
+  mixins: [
+      Configuration
+  ],
+
   beforeDestroy() {
     if (this.game) {
       this.game.destroy(true, false);
@@ -96,6 +101,8 @@ export default {
   },
 
   mounted() {
+    let apiUrl = this.getApiUrl('game/3/');
+
     let area;
     const clickables = [];
     let bridges = this.bridges;
@@ -166,7 +173,7 @@ export default {
               })
 
               let id = gameObject.bridge;
-              axios.post(`https://streamercup-api.chrotos.net/api/game/3/${id}`).catch(error => {
+              axios.post(apiUrl + id).catch(error => {
                 gameObject.setFillStyle(defaultFillStyle.color, defaultFillStyle.alpha);
                 gameObject.selected = false;
               });

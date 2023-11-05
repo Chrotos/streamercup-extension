@@ -4,6 +4,7 @@
 
 <script>
 import * as Phaser from 'phaser';
+import Configuration from "../mixins/Configuration";
 
 const defaultFillStyle = {
   color: 0x6666ff,
@@ -41,6 +42,10 @@ export default {
 
   props: ['platforms'],
 
+  mixins: [
+      Configuration
+  ],
+
   beforeDestroy() {
     if (this.game) {
       this.game.destroy(true, false);
@@ -51,6 +56,7 @@ export default {
     const clickables = [];
     let area;
     let platforms = this.platforms;
+    let apiUrl = this.getApiUrl('game/19/');
 
     const config = {
       type: Phaser.CANVAS,
@@ -118,7 +124,8 @@ export default {
               })
 
               let id = gameObject.platform;
-              axios.post(`https://streamercup-api.chrotos.net/api/game/19/${id}`).catch(error => {
+              //axios.post(`https://streamercup-api.chrotos.net/api/game/19/${id}`).catch(error => {
+              axios.post(apiUrl + id).catch(error => {
                 gameObject.setFillStyle(defaultFillStyle.color, defaultFillStyle.alpha);
                 gameObject.selected = false;
               });

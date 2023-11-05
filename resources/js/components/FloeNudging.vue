@@ -11,6 +11,8 @@
 
 <script>
 
+import Configuration from "../mixins/Configuration";
+
 export default {
 
   name: 'FloeNudging',
@@ -22,6 +24,10 @@ export default {
 
   props: ['players'],
 
+  mixins: [
+      Configuration
+  ],
+
   mounted() {
 
   },
@@ -29,7 +35,7 @@ export default {
   methods: {
     vote (player) {
       this.voted = player;
-      this.$http.post(`https://streamercup-api.chrotos.net/api/game/50/${player}`).catch(error => {
+      this.$http.post(this.getApiUrl(`game/50/${player}`)).catch(error => {
         if (error.response?.status === 409) {
           this.voted = player;
           return;

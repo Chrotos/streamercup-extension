@@ -30,6 +30,8 @@ export default {
   },
 
   mounted() {
+    let apiUrl = this.getApiUrl('game/45/');
+
     let area;
     const zones = [];
     const cards = [];
@@ -123,7 +125,7 @@ export default {
               }
             }
 
-            axios.post('https://streamercup-api.chrotos.net/api/game/45/', null, {
+            axios.post(apiUrl, null, {
               params: {
                 order: order.join('')
               }

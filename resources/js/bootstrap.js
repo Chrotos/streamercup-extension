@@ -1,14 +1,13 @@
 import axios from 'axios';
-import Pusher from "pusher-js";
-import * as PusherTypes from 'pusher-js';
 
-const APP_KEY = 'KEY';
-const WS_HOST = 'streamercup-socket.chrotos.net';
-const WS_PORT = 6001;
-const AUTHORIZATION_ENDPOINT = 'https://streamercup-api.chrotos.net/api/socket';
+//const APP_KEY = 'KEY';
+//const WS_HOST = 'streamercup-socket.chrotos.net';
+//const WS_PORT = 6001;
+//const AUTHORIZATION_ENDPOINT = 'https://streamercup-api.chrotos.net/api/socket';
 
 window.logger = process.env.NODE_ENV === 'development' ? console.log.bind(console) : () => { };
 
+/*
 window.pusher = new Pusher(APP_KEY, {
     wsHost: WS_HOST,
     wsPort: WS_PORT,
@@ -22,5 +21,7 @@ window.pusher = new Pusher(APP_KEY, {
         headersProvider: () => window.axios.defaults.headers.common
     },
 });
+ */
+
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

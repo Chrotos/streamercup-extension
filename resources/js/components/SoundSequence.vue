@@ -4,6 +4,7 @@
 
 <script>
 import * as Phaser from 'phaser';
+import Configuration from "../mixins/Configuration";
 
 const startX = 100;
 const endX = 500;
@@ -23,6 +24,10 @@ export default {
 
   props: ['sequence'],
 
+  mixins: [
+      Configuration
+  ],
+
   beforeDestroy() {
     if (this.game) {
       this.game.destroy(true, false);
@@ -30,6 +35,8 @@ export default {
   },
 
   mounted() {
+    let apiUrl = this.getApiUrl('game/13/');
+
     let area;
     const zones = [];
     const cards = [];
@@ -123,7 +130,7 @@ export default {
               }
             }
 
-            axios.post('https://streamercup-api.chrotos.net/api/game/13/', null, {
+            axios.post(apiUrl, null, {
               params: {
                 order: order.join('')
               }

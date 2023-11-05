@@ -14,6 +14,8 @@
 
 <script>
 
+import Configuration from "../mixins/Configuration";
+
 export default {
 
   name: 'RadiusEraser',
@@ -25,6 +27,10 @@ export default {
 
   props: ['conditions'],
 
+  mixins: [
+      Configuration
+  ],
+
   mounted() {
 
   },
@@ -32,7 +38,7 @@ export default {
   methods: {
     vote (condition) {
       this.voted = condition;
-      this.$http.post(`https://streamercup-api.chrotos.net/api/game/39/${condition}`).catch(error => {
+      this.$http.post(this.getApiUrl(`game/39/${condition}`)).catch(error => {
         if (error.response?.status === 409) {
           this.voted = condition;
           return;
