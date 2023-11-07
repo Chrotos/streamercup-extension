@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="mainClassName">
+    <div v-bind:class="mainClassName" v-if="finishedLoading">
       <CollectSheeps v-if="sheep.gates?.length" v-bind:sheep="sheep" :key="'unique'" />
       <SharpPath v-if="sharpPath.walls?.length" v-bind:walls="sharpPath.walls" :key="'unique'" />
       <SoundSequence v-if="soundSequence?.players?.length" v-bind:sequence="soundSequence" :key="'unique'" />
@@ -41,6 +41,18 @@
             </td>
           </tr>
         </table>
+      </div>
+      <div v-if="nothingShown || !auth.isLoggedIn()" style="margin: auto; width: 50%; text-align: center">
+        <h1>STREAMERCUP</h1>
+        <h2 v-if="nothingShown && auth.isLoggedIn()">Waiting for next Game</h2>
+      </div>
+      <div v-if="!auth.isLoggedIn()" style="margin: auto; width: 50%; text-align: center">
+        <h3>
+          Identity Link Required
+        </h3>
+        <button style="background: none; border: none">
+          <img src="img/login.png" alt="Link" height="65px" @click="askForAuth" style="filter: invert(1)"/>
+        </button>
       </div>
     </div>
 </template>
@@ -86,7 +98,7 @@ export default {
         },
         mainClassName() {
             return `viewer ${this.theme} ${this.platform}`;
-        }
+        },
     },
 
     data () {
@@ -112,6 +124,7 @@ export default {
             matchingPlatform: {platforms: []},
             theme: 'light',
             platform: 'web',
+            nothingShown: false
         }
     },
 
@@ -119,414 +132,415 @@ export default {
 
     },
 
+    beforeUpdate() {
+        this.nothingShown = !(this.sheep.gates?.length || this.sharpPath.walls?.length || this.soundSequence?.players?.length
+                              || this.puzzlePortrait?.players?.length || this.trafficLight?.bridges?.length || this.chooseWisely?.platforms?.length
+                              || this.sweetsCatcher?.conditions?.length || this.floeNudging?.players?.length || this.estimateSheeps?.conditions?.length
+                              || this.foldFigures?.active || this.radiusEraser?.conditions?.length || this.simonSays?.conditions?.length
+                              || this.comboCannon?.active || this.timeCounter?.conditions?.length || this.copyStructures?.structures?.length
+                              || this.matchingPlatform?.platforms?.length || this.voting?.title && !!this.voting?.options?.length);
+    },
+
     methods: {
-        vote (gameId) {
-          this.voted = true;
-            //this.$http.post(`https://streamercup-api.chrotos.net/api/vote/${gameId}`).catch(error => {
-            this.$http.post(this.getApiUrl(`vote/${gameId}`)).catch(error => {
-              if (error.response.status === 409) {
-                this.voted = true;
-                return;
+          vote (gameId) {
+            this.voted = true;
+              //this.$http.post(`https://streamercup-api.chrotos.net/api/vote/${gameId}`).catch(error => {
+              this.$http.post(this.getApiUrl(`vote/${gameId}`)).catch(error => {
+                if (error.response.status === 409) {
+                  this.voted = true;
+                  return;
+                }
+                if (error.response.status === 403) {
+                  this.voting = null;
+                }
+
+                this.voted = false;
+              });
+          },
+
+          boot () {
+              this.connectSocket();
+              if (this.auth.isLoggedIn()) {
+                  window.pusher.subscribe('presence-' + this.auth.getUserId()).bind_global(this.onPrivateMessage);
+                  window.pusher.subscribe('cache-global').bind_global(this.onGlobalMessage);
               }
-              if (error.response.status === 403) {
-                this.voting = null;
-              }
 
-              this.voted = false;
-            });
-        },
+              this.finishedLoading = true;
+          },
 
-        boot () {
-            logger('Enabling...');
+          contextUpdate (context, delta) {
+            this.theme = context.theme;
+            this.platform = this.getPlatform();
+          },
 
-            this.connectSocket();
-            if (this.auth.isLoggedIn()) {
-              window.pusher.subscribe('presence-' + this.auth.getUserId()).bind_global(this.onPrivateMessage);
-            } else {
-              this.askForAuth();
-            }
-            window.pusher.subscribe('cache-global').bind_global(this.onGlobalMessage);
-
-            this.finishedLoading = true;
-        },
-
-        contextUpdate (context, delta) {
-          this.theme = context.theme;
-          this.platform = this.getPlatform();
-        },
-
-        logError (error) {
-            logger('EBS request returned '+error.status+' ('+error+')');
-        },
-
-        onGlobalMessage (messageName, message) {
-            switch (messageName) {
-              case 'voting':
-                let newVoting = false;
-                if (!this.voting?.title || !this.voting?.options) {
-                  if (message?.title && message?.options) {
-                    this.voted = false;
-                    newVoting = true;
-                  }
-                }
-                this.voting = message ?? {};
-                if (newVoting) {
-                  this.countDownTimer();
-                }
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                break;
-              case 'sheep':
-                this.voting = {};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.sheep = message ?? {gates:[]};
-                break;
-              case 'sound_sequence':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.soundSequence = message ?? {players: []};
-                break;
-              case 'sharp_path':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.sharpPath = message ?? {walls: []};
-                break;
-              case 'puzzle_portrait':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.puzzlePortrait = message ?? {players: []};
-                break;
-              case 'traffic_light':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.trafficLight = message ?? {bridges: []};
-                break;
-              case 'choose_wisely':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.chooseWisely = message ?? {platforms: []};
-                break;
-              case 'sweets_catcher':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.sweetsCatcher = message ?? {conditions: []};
-                break;
-              case 'floe_nudging':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.floeNudging = message ?? {players: []};
-                break;
-              case 'estimate_sheeps':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.foldFigures = {active: false}
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.estimateSheeps = message ?? {conditions: []};
-                break;
-              case 'fold_figures':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.foldFigures = message ?? {active: false};
-                break
-              case 'radius_eraser':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false};
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.radiusEraser = message ?? {conditions: []};
-                break
-              case 'simon_says':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false};
-                this.radiusEraser = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.simonSays = message ?? {conditions: []};
-                break;
-              case 'combo_cannon':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false};
-                this.radiusEraser = {conditions: []};
-                this.simonSays = {conditions: []};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.comboCannon = message ?? {active: false};
-                break;
-              case 'time_counter':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false};
-                this.radiusEraser = {conditions: []};
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = {platforms: []};
-                this.timeCounter = message ?? {conditions: []};
-                break;
-              case 'copy_structures':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false};
-                this.radiusEraser = {conditions: []};
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.matchingPlatform = {platforms: []};
-                this.copyStructures = message ?? {structures: []};
-                break;
-              case 'matching_platform':
-                this.voting = {};
-                this.sheep = {gates:[]};
-                this.soundSequence = {players: []};
-                this.sharpPath = {walls: []};
-                this.puzzlePortrait = {players: []};
-                this.trafficLight = {bridges: []};
-                this.chooseWisely = {platforms: []};
-                this.sweetsCatcher = {conditions: []};
-                this.floeNudging = {players: []};
-                this.estimateSheeps = {conditions: []};
-                this.foldFigures = {active: false};
-                this.radiusEraser = {conditions: []};
-                this.simonSays = {conditions: []};
-                this.comboCannon = {active: false};
-                this.timeCounter = {conditions: []};
-                this.copyStructures = {structures: []};
-                this.matchingPlatform = message ?? {platforms: []};
-                break;
-            }
-        },
-
-        onPrivateMessage (messageName, message) {
-            switch (messageName) {
-              case "state":
-                this.voted = message.voted;
-                break;
-            }
-        },
-
-        countDownTimer() {
-            if (this.votingEnd) {
-                this.countDown = Math.floor((Date.parse(this.votingEnd) - new Date()) / 1000);
-                if (this.countDown < 0) {
-                  this.countDown = 0;
-                }
-
-                setTimeout(() => {
-                    this.countDown = Math.floor((Date.parse(this.votingEnd) - new Date()) / 1000);
-                    if (this.countDown < 0) {
-                        this.countDown = 0;
-                    } else {
-                        this.countDownTimer();
+          onGlobalMessage (messageName, message) {
+              switch (messageName) {
+                case 'voting':
+                  let newVoting = false;
+                  if (!this.voting?.title || !this.voting?.options) {
+                    if (message?.title && message?.options) {
+                      this.voted = false;
+                      newVoting = true;
                     }
-                }, 1000);
-            }
-        },
+                  }
+                  this.voting = message ?? {};
+                  if (newVoting) {
+                    this.countDownTimer();
+                  }
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  break;
+                case 'sheep':
+                  this.voting = {};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.sheep = message ?? {gates:[]};
+                  break;
+                case 'sound_sequence':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.soundSequence = message ?? {players: []};
+                  break;
+                case 'sharp_path':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.sharpPath = message ?? {walls: []};
+                  break;
+                case 'puzzle_portrait':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.puzzlePortrait = message ?? {players: []};
+                  break;
+                case 'traffic_light':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.trafficLight = message ?? {bridges: []};
+                  break;
+                case 'choose_wisely':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.chooseWisely = message ?? {platforms: []};
+                  break;
+                case 'sweets_catcher':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.sweetsCatcher = message ?? {conditions: []};
+                  break;
+                case 'floe_nudging':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.floeNudging = message ?? {players: []};
+                  break;
+                case 'estimate_sheeps':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.foldFigures = {active: false}
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.estimateSheeps = message ?? {conditions: []};
+                  break;
+                case 'fold_figures':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.foldFigures = message ?? {active: false};
+                  break
+                case 'radius_eraser':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false};
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.radiusEraser = message ?? {conditions: []};
+                  break
+                case 'simon_says':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false};
+                  this.radiusEraser = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.simonSays = message ?? {conditions: []};
+                  break;
+                case 'combo_cannon':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false};
+                  this.radiusEraser = {conditions: []};
+                  this.simonSays = {conditions: []};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.comboCannon = message ?? {active: false};
+                  break;
+                case 'time_counter':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false};
+                  this.radiusEraser = {conditions: []};
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.timeCounter = message ?? {conditions: []};
+                  break;
+                case 'copy_structures':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false};
+                  this.radiusEraser = {conditions: []};
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.matchingPlatform = {platforms: []};
+                  this.copyStructures = message ?? {structures: []};
+                  break;
+                case 'matching_platform':
+                  this.voting = {};
+                  this.sheep = {gates:[]};
+                  this.soundSequence = {players: []};
+                  this.sharpPath = {walls: []};
+                  this.puzzlePortrait = {players: []};
+                  this.trafficLight = {bridges: []};
+                  this.chooseWisely = {platforms: []};
+                  this.sweetsCatcher = {conditions: []};
+                  this.floeNudging = {players: []};
+                  this.estimateSheeps = {conditions: []};
+                  this.foldFigures = {active: false};
+                  this.radiusEraser = {conditions: []};
+                  this.simonSays = {conditions: []};
+                  this.comboCannon = {active: false};
+                  this.timeCounter = {conditions: []};
+                  this.copyStructures = {structures: []};
+                  this.matchingPlatform = message ?? {platforms: []};
+                  break;
+              }
+          },
 
-        connectSocket() {
-          window.pusher = new Pusher(this.getSocketKey(), {
-            wsHost: this.getSocketBaseUrl(),
-            wsPort: this.getSocketPort(),
-            cluster: '',
-            forceTLS: false,
-            disableStats: true,
-            enabledTransports: ['ws', 'wss'],
-            channelAuthorization: {
-              transport: 'ajax',
-              endpoint: this.getSocketAuthorizationUrl(),
-              headersProvider: () => window.axios.defaults.headers.common
-            },
-          });
-        }
+          onPrivateMessage (messageName, message) {
+              switch (messageName) {
+                case "state":
+                  this.voted = message.voted;
+                  break;
+              }
+          },
+
+          countDownTimer() {
+              if (this.votingEnd) {
+                  this.countDown = Math.floor((Date.parse(this.votingEnd) - new Date()) / 1000);
+                  if (this.countDown < 0) {
+                    this.countDown = 0;
+                  }
+
+                  setTimeout(() => {
+                      this.countDown = Math.floor((Date.parse(this.votingEnd) - new Date()) / 1000);
+                      if (this.countDown < 0) {
+                          this.countDown = 0;
+                      } else {
+                          this.countDownTimer();
+                      }
+                  }, 1000);
+              }
+          },
+
+          connectSocket() {
+            window.pusher = new Pusher(this.getSocketKey(), {
+              wsHost: this.getSocketBaseUrl(),
+              wsPort: this.getSocketPort(),
+              cluster: '',
+              forceTLS: false,
+              disableStats: true,
+              enabledTransports: ['ws', 'wss'],
+              channelAuthorization: {
+                transport: 'ajax',
+                endpoint: this.getSocketAuthorizationUrl(),
+                headersProvider: () => window.axios.defaults.headers.common
+              },
+            });
+          }
     }
 }
 </script>

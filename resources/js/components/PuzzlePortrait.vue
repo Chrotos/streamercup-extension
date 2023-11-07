@@ -4,6 +4,7 @@
 
 <script>
 import * as Phaser from 'phaser';
+import Configuration from "../mixins/Configuration";
 
 const startX = 100;
 const endX = 500;
@@ -22,6 +23,10 @@ export default {
   },
 
   props: ['sequence'],
+
+  mixins: [
+      Configuration
+  ],
 
   beforeDestroy() {
     if (this.game) {
