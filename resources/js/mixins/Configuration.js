@@ -29,15 +29,15 @@ export default {
         },
 
         isTesting() {
-            return this.getState() in ['testing', 'hosted_test', 'ready_for_review', 'uploading'];
+            return ['testing', 'hosted_test', 'ready_for_review', 'uploading'].includes(this.getState());
         },
 
         isApproved() {
-            return this.getState() in ['approved', 'released'];
+            return  ['approved', 'released'].includes(this.getState());
         },
 
         isReview() {
-            return this.getState() in ['in_review', 'pending_action'];
+            return ['in_review', 'pending_action'].includes(this.getState());
         },
 
         getState() {
