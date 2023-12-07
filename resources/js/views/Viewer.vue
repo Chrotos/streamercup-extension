@@ -4,7 +4,7 @@
       <SharpPath v-if="sharpPath.walls?.length" v-bind:walls="sharpPath.walls" :key="'unique'" />
       <SoundSequence v-if="soundSequence?.players?.length" v-bind:sequence="soundSequence" :key="'unique'" />
       <PuzzlePortrait v-if="puzzlePortrait?.players?.length" v-bind:sequence="puzzlePortrait" :key="'unique'" />
-      <TrafficLight style="margin-left: 15%" v-if="trafficLight?.bridges?.length" v-bind:bridges="trafficLight.bridges" :key="'unique'" />
+      <TrafficLight v-if="trafficLight?.bridges?.length" v-bind:bridges="trafficLight.bridges" :key="'unique'" />
       <ChooseWisely v-if="chooseWisely?.platforms?.length" v-bind:platforms="chooseWisely.platforms" :key="'unique'" />
       <SweetsCatcher v-if="sweetsCatcher?.conditions?.length" v-bind:conditions="sweetsCatcher.conditions" :key="'unique'" />
       <FloeNudging v-if="floeNudging?.players?.length" v-bind:players="floeNudging.players" :key="'unique'" />
@@ -42,11 +42,11 @@
           </tr>
         </table>
       </div>
-      <div v-if="nothingShown || !auth.isLoggedIn()" style="margin: auto; width: 50%; text-align: center">
+      <div v-if="nothingShown || !auth.isLoggedIn()" style="width: 100%; text-align: center">
         <h1>STREAMERCUP</h1>
         <h2 v-if="nothingShown && auth.isLoggedIn()">Waiting for next Game</h2>
       </div>
-      <div v-if="!auth.isLoggedIn()" style="margin: auto; width: 50%; text-align: center">
+      <div v-if="!auth.isLoggedIn()" style="width: 100%; text-align: center">
         <h3>
           Identity Link Required
         </h3>

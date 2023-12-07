@@ -1,8 +1,8 @@
 <template>
-  <div style="display: inline-block; background-color: black">
-    <h1 style="margin-left: 25%; width: 100%">Konstrukte kopieren</h1>
+  <div style="display: inline-block; background-color: black; width: 100%">
+    <h1 style="width: 100%; text-align: center">Konstrukte kopieren</h1>
     <div style="margin-left: 1%; width: 100%">
-      <button v-for="structure in structures" @click="vote(structure.name)" :disabled="voted === structure.name">
+      <button v-for="structure in structures" @click="vote(structure.name)" :disabled="voted === structure.name" style="margin-bottom: 50px">
         <figure>
           <img :src="`img/structures/${structure.image}.webp`" :alt="structure.name" />
           <figcaption style="color: white; text-align: center; width: 100%">{{ structure.name }}</figcaption>

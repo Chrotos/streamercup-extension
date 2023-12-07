@@ -1,7 +1,7 @@
 <template>
-  <div style="display: inline-block">
-    <h1 style="margin-left: 66%; width: 100%">Figuren Falten</h1>
-    <table style="margin-left: 66%; width: 100%">
+  <div style="display: inline-block; width: 100%">
+    <h1 style="width: 100%; text-align: center">Figuren Falten</h1>
+    <table style="margin: auto; width: 50%">
       <tr>
         <!-- Upper Left = empty -->
         <td />

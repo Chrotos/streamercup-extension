@@ -1,8 +1,8 @@
 <template>
-  <div style="display: inline-block">
-    <h1 style="margin-left: 45%; width: 100%">Radius Radierer</h1>
-    <div style="margin-left: 33%; width: 100%">
-      <button v-for="condition in conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
+  <div style="display: inline-block; width: 100%">
+    <h1 style="width: 100%; text-align: center">Radius Radierer</h1>
+    <div style="margin: auto; width: 66%">
+      <button v-for="condition in conditions" @click="vote(condition.name)" :disabled="voted === condition.name" style="margin-bottom: 50px">
         <figure>
           <img :src="`img/${condition.icon}.png`" :alt="condition.name" :data-disabled="voted === condition.name" />
           <figcaption style="color: white; text-align: center; width: 100%">{{ condition.name }}</figcaption>

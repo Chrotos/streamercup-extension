@@ -1,7 +1,7 @@
 <template>
-  <div style="display: inline-block">
-    <h1 style="margin-left: 25%; width: 100%">Schäfchen Schätzen</h1>
-    <div style="margin-left: 33%; width: 100%">
+  <div style="display: inline-block; width: 100%">
+    <h1 style="width: 100%; text-align: center">Schäfchen Schätzen</h1>
+    <div style="margin: auto; width: 66%; padding-bottom: 40px">
       <button v-for="condition in conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure>
           <img :src="`img/${condition.icon}.png`" :alt="condition.name" :data-disabled="voted === condition.name" />
