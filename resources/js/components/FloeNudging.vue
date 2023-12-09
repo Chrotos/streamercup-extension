@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Schollen Schubser</h1>
+    <h1 style="width: 100%; text-align: center">Schollen-Schubser</h1>
     <div style="width: 100%">
       <button v-for="player in players" @click="vote(player.id)" :disabled="voted === player.id">
           <img :src="player.avatar" :data-disabled="voted === player.id" />

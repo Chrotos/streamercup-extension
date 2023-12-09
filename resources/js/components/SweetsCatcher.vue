@@ -1,11 +1,11 @@
 <template>
   <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Süßigkeiten Schnapper</h1>
+    <h1 style="width: 100%; text-align: center">Süßigkeiten-Schnapper</h1>
     <div style="margin: auto; width: 60%">
       <button v-for="condition in conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure>
           <img :src="`img/${condition.icon}.png`" :alt="condition.name" :data-disabled="voted === condition.name" />
-          <figcaption style="color: white; text-align: center; width: 100%">{{ condition.name }}</figcaption>
+          <figcaption style="text-align: center; width: 100%">{{ condition.name }}</figcaption>
         </figure>
       </button>
     </div>

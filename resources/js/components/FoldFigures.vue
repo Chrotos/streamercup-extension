@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Figuren Falten</h1>
+    <h1 style="width: 100%; text-align: center">Figuren falten</h1>
     <table style="margin: auto; width: 50%">
       <tr>
         <!-- Upper Left = empty -->

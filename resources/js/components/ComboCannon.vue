@@ -65,7 +65,7 @@ export default {
             dices.push(this.add.image(diceX, diceY, currentDiceNumbers[i]).setScale(diceFactor));
           }
 
-          this.add.text(600 / 2, 30, 'Kombi Kanone', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 30, 'Kombi-Kanone', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           let button = this.add.text(600 / 2, 480 / 2, 'Werfen!', {font: '35px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5).setInteractive();
           button.on('pointerup', function () {

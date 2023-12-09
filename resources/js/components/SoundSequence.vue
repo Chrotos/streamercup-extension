@@ -78,7 +78,7 @@ export default {
 
             this.input.setDraggable(card);
           })
-          this.add.text(600 / 2, 30, 'Sound Sequenz', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 30, 'Sound-Sequenz', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           cards.forEach(card => this.children.bringToTop(card));
 

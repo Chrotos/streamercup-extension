@@ -112,7 +112,7 @@ export default {
             clickables.push(clickable);
           })
 
-          this.add.text(600 / 2, 20, 'Schafe Sammeln', {font: '40px Arial', fill: '#000000', align: "center"}).setOrigin(0.5, 0.5);
+          this.add.text(600 / 2, 20, 'Schafe sammeln', {font: '40px Arial', fill: '#000000', align: "center"}).setOrigin(0.5, 0.5);
 
           this.input.setPollOnMove();
           this.input.on('gameobjectover', function (pointer, gameObject) {

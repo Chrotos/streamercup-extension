@@ -5,7 +5,7 @@
       <button v-for="condition in conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure>
           <img :src="`img/${condition.icon}.png`" :alt="condition.name" :data-disabled="voted === condition.name" />
-          <figcaption style="color: white; text-align: center; width: 100%">{{ condition.name }}</figcaption>
+          <figcaption style="text-align: center; width: 100%">{{ condition.name }}</figcaption>
         </figure>
       </button>
     </div>

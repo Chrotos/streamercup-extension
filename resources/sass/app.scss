@@ -12,14 +12,6 @@ body {
     height: 100vh;
 }
 
-.viewer.dark {
-    color: white;
-}
-
-.viewer.light {
-    color: black;
-}
-
 body .light.mobile {
     background-color: white;
 }
@@ -27,6 +19,39 @@ body .dark.mobile {
     background-color: black;
 }
 
-.web {
+.web * {
+    color: white;
+}
 
+button {
+    color: black !important;
+}
+
+.web #link-button {
+    filter: invert(1) drop-shadow(5px 5px 2px black);
+}
+
+.web #link-button:hover {
+    translate: -2px -2px;
+    filter: invert(1) drop-shadow(7px 7px 2px black);
+}
+
+.light.mobile #link-button {
+    filter: drop-shadow(5px 5px 2px gray);
+}
+
+.dark.mobile #link-button {
+    filter: invert(1) drop-shadow(5px 5px 2px gray);
+}
+
+.light.mobile * {
+    color: black;
+}
+
+.dark.mobile * {
+    color: white;
+}
+
+.mobile #phaser {
+    background-color: black;
 }

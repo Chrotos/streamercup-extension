@@ -50,8 +50,8 @@
         <h3>
           Identity Link Required
         </h3>
-        <button style="background: none; border: none">
-          <img src="img/login.png" alt="Link" height="65px" @click="askForAuth" style="filter: invert(1)"/>
+        <button style="background: none; border: none" id="link-button">
+          <img src="img/login.png" alt="Link" height="65px" @click="askForAuth"/>
         </button>
       </div>
     </div>
