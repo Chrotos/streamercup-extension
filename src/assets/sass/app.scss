@@ -1,0 +1,201 @@
+@import "variables";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    margin: 0;
+    top: 0;
+}
+
+header {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 38px;
+}
+
+footer {
+    height: 46px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.vertical-center {
+    vertical-align: center;
+}
+
+.container {
+    background-image: url('@/assets/img/background/extension.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.inner {
+    background-color: rgba($dark, 0.7);
+    height: 100%;
+}
+
+.title {
+    margin: 0;
+    display: block;
+    padding: 0 5px;
+    border: solid 2px;
+}
+
+.center {
+    width: 50%;
+    margin: auto;
+}
+
+.content {
+    height: calc(100% - 38px - 46px);
+    margin-top: 38px;
+}
+
+body .light.mobile {
+ //   background-color: white;
+}
+body .dark.mobile {
+ //   background-color: black;
+}
+
+.web * {
+    color: white;
+}
+
+button {
+    color: black !important;
+}
+
+.web #link-button {
+    //filter: invert(1) drop-shadow(5px 5px 2px black);
+    animation: pulse 4s infinite;
+}
+
+.web #link-button:hover {
+    //translate: -2px -2px;
+    //filter: invert(1) drop-shadow(7px 7px 2px black);
+    filter: invert(1) drop-shadow(0px 0px 6px white);
+    animation: none;
+}
+
+@keyframes pulse {
+    0% {
+        filter: invert(1) drop-shadow(0px 0px 0px white);
+    }
+
+    50% {
+        filter: invert(1) drop-shadow(0px 0px 6px white);
+    }
+
+    100% {
+        filter: invert(1) drop-shadow(0px 0px 0px white);
+    }
+}
+
+.light.mobile #link-button {
+    filter: drop-shadow(5px 5px 2px gray);
+}
+
+.dark.mobile #link-button {
+    filter: invert(1) drop-shadow(5px 5px 2px gray);
+}
+
+.light.mobile * {
+    color: black;
+}
+
+.dark.mobile * {
+    color: white;
+}
+
+.mobile #phaser {
+    background-color: black;
+}
+
+.opacity-50 {
+    //opacity: 50%;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.flex-inline {
+    display: inline-flex;
+    flex-flow: row wrap;
+}
+
+.flex-evenly {
+    justify-content: space-evenly;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+
+.inline-grid {
+    display: inline-grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.gap-50px {
+    gap: 30px;
+}
+
+.gap-50px-5px {
+    gap: 30px 5px;
+}
+
+//////////// BACKGROUNDS ////////////
+.background-accent {
+    background-color: $accent;
+}
+
+.background-secondary {
+    background-color: $secondary;
+}
+
+.background-dark {
+    background-color: $dark;
+}
+
+.background-light {
+    background-color: $light;
+}
+
+//////////// TEXT COLOR ////////////
+.text-accent {
+    color: $accent;
+}
+
+.text-secondary {
+    color: $secondary;
+}
+
+.text-dark {
+    color: $dark;
+}
+
+.text-light {
+    color: $light;
+}

@@ -1,0 +1,30 @@
+// vite.config.ts
+import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "file:///H:/Chrotos/Projekte/Minecraft%20Carnival/plugins/streamercup/extension_next/node_modules/vite/dist/node/index.js";
+import { splitVendorChunkPlugin } from "file:///H:/Chrotos/Projekte/Minecraft%20Carnival/plugins/streamercup/extension_next/node_modules/vite/dist/node/index.js";
+import vue from "file:///H:/Chrotos/Projekte/Minecraft%20Carnival/plugins/streamercup/extension_next/node_modules/@vitejs/plugin-vue/dist/index.mjs";
+import tailwindcss from "file:///H:/Chrotos/Projekte/Minecraft%20Carnival/plugins/streamercup/extension_next/node_modules/tailwindcss/lib/index.js";
+var __vite_injected_original_import_meta_url = "file:///H:/Chrotos/Projekte/Minecraft%20Carnival/plugins/streamercup/extension_next/vite.config.ts";
+var vite_config_default = defineConfig({
+  plugins: [
+    vue(),
+    splitVendorChunkPlugin()
+  ],
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", __vite_injected_original_import_meta_url))
+    }
+  },
+  build: {
+    minify: false
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss]
+    }
+  }
+});
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCJIOlxcXFxDaHJvdG9zXFxcXFByb2pla3RlXFxcXE1pbmVjcmFmdCBDYXJuaXZhbFxcXFxwbHVnaW5zXFxcXHN0cmVhbWVyY3VwXFxcXGV4dGVuc2lvbl9uZXh0XCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ZpbGVuYW1lID0gXCJIOlxcXFxDaHJvdG9zXFxcXFByb2pla3RlXFxcXE1pbmVjcmFmdCBDYXJuaXZhbFxcXFxwbHVnaW5zXFxcXHN0cmVhbWVyY3VwXFxcXGV4dGVuc2lvbl9uZXh0XFxcXHZpdGUuY29uZmlnLnRzXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ltcG9ydF9tZXRhX3VybCA9IFwiZmlsZTovLy9IOi9DaHJvdG9zL1Byb2pla3RlL01pbmVjcmFmdCUyMENhcm5pdmFsL3BsdWdpbnMvc3RyZWFtZXJjdXAvZXh0ZW5zaW9uX25leHQvdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBmaWxlVVJMVG9QYXRoLCBVUkwgfSBmcm9tICdub2RlOnVybCdcblxuaW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSdcbmltcG9ydCB7IHNwbGl0VmVuZG9yQ2h1bmtQbHVnaW4gfSBmcm9tICd2aXRlJztcbmltcG9ydCB2dWUgZnJvbSAnQHZpdGVqcy9wbHVnaW4tdnVlJ1xuaW1wb3J0IHRhaWx3aW5kY3NzIGZyb20gJ3RhaWx3aW5kY3NzJ1xuXG4vLyBodHRwczovL3ZpdGVqcy5kZXYvY29uZmlnL1xuZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKHtcbiAgcGx1Z2luczogW1xuICAgIHZ1ZSgpLFxuICAgIHNwbGl0VmVuZG9yQ2h1bmtQbHVnaW4oKVxuICBdLFxuICByZXNvbHZlOiB7XG4gICAgYWxpYXM6IHtcbiAgICAgICdAJzogZmlsZVVSTFRvUGF0aChuZXcgVVJMKCcuL3NyYycsIGltcG9ydC5tZXRhLnVybCkpXG4gICAgfVxuICB9LFxuICBidWlsZDoge1xuICAgIG1pbmlmeTogZmFsc2VcbiAgfSxcbiAgY3NzOiB7XG4gICAgcG9zdGNzczoge1xuICAgICAgcGx1Z2luczogW3RhaWx3aW5kY3NzXVxuICAgIH1cbiAgfVxufSlcbiJdLAogICJtYXBwaW5ncyI6ICI7QUFBNlosU0FBUyxlQUFlLFdBQVc7QUFFaGMsU0FBUyxvQkFBb0I7QUFDN0IsU0FBUyw4QkFBOEI7QUFDdkMsT0FBTyxTQUFTO0FBQ2hCLE9BQU8saUJBQWlCO0FBTCtPLElBQU0sMkNBQTJDO0FBUXhULElBQU8sc0JBQVEsYUFBYTtBQUFBLEVBQzFCLFNBQVM7QUFBQSxJQUNQLElBQUk7QUFBQSxJQUNKLHVCQUF1QjtBQUFBLEVBQ3pCO0FBQUEsRUFDQSxTQUFTO0FBQUEsSUFDUCxPQUFPO0FBQUEsTUFDTCxLQUFLLGNBQWMsSUFBSSxJQUFJLFNBQVMsd0NBQWUsQ0FBQztBQUFBLElBQ3REO0FBQUEsRUFDRjtBQUFBLEVBQ0EsT0FBTztBQUFBLElBQ0wsUUFBUTtBQUFBLEVBQ1Y7QUFBQSxFQUNBLEtBQUs7QUFBQSxJQUNILFNBQVM7QUFBQSxNQUNQLFNBQVMsQ0FBQyxXQUFXO0FBQUEsSUFDdkI7QUFBQSxFQUNGO0FBQ0YsQ0FBQzsiLAogICJuYW1lcyI6IFtdCn0K
