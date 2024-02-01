@@ -1,17 +1,30 @@
 <template>
-  <li class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow w-1/2">
-    <div class="flex flex-1 flex-col p-8">
-      <img class="mx-auto h-32 w-32 flex-shrink-0 rounded-full" :src="option.image_url" alt="">
-      <h3 class="mt-6 text-sm font-medium text-gray-900">{{ option.name }}</h3>
-      <dl class="mt-1 flex flex-grow flex-col justify-between">
-        <dd class="text-sm text-gray-500">{{ option.description }}</dd>
-      </dl>
+  <div :class="['cursor-pointer dark:bg-twitch-dark rounded-lg shadow-md', {
+    'hover:scale-105 dark:hover:bg-twitch-selected dark:active:bg-twitch-selected': !voted
+  }]">
+    <div class="flex flex-col rounded-lg text-center justify-center gap-4 py-5 px-5">
+      <div class="relative">
+        <img class="rounded shadow-md object-cover" :src="option.image_url" alt="">
+        <div class="absolute text-[10px] -bottom-1.5 -right-2 bg-red-500 rounded-lg px-1.5">
+          {{ option.votes }}
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1 justify-center">
+        <div class="text-sm font-medium text-gray-900">{{ option.name }}</div>
+        <div class="text-[10px] text-gray-500 line-clamp-4" :title="option.description">{{ option.description }}</div>
+      </div>
     </div>
-  </li>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { VoteOption } from '@/types'
+import { useStateStore } from '@/stores/state'
+import { storeToRefs } from 'pinia'
 
 const option: VoteOption = defineModel<VoteOption>()
+
+const state = useStateStore()
+const { voted } = storeToRefs(state)
 </script>

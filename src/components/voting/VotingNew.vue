@@ -1,13 +1,20 @@
 <template>
-  <h2 class="w-full text-center text-xl">{{ voteData?.title }}</h2>
-  <p class="w-full text-center text-xs">{{ countDown }}</p>
-  <ul role="list" class="grid grid-cols-2 gap-6 justify-center">
-    <template v-if="!voted">
+  <div class="flex flex-col gap-1">
+
+    <div class="flex justify-center">
+      <div class="text-xl px-2 py-0.5 dark:drop-shadow-[0px_0px_1px_white]">{{ voteData?.title }}</div>
+    </div>
+
+    <div class="flex justify-center">
+      <div class="text-xs px-2 py-0.5">{{ countDown }}</div>
+    </div>
+
+    <div class="flex justify-evenly">
       <template v-for="option in voteData?.options" v-bind:key="option.game_id">
-        <voting-card class="cursor-pointer" v-bind:model-value="option" @click="vote(option.game_id)"></voting-card>
+        <voting-card class="w-[20ch] pt-2" v-bind:model-value="option" @click="vote(option.game_id)"></voting-card>
       </template>
-    </template>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +54,10 @@ const countDown = ref("")
 updateCountDown()
 
 function vote (gameId: string) {
+  if (voted.value) {
+    return
+  }
+
   voted.value = true;
   axios.post(config.getApiUrl(`vote/${gameId}`)).catch(error => {
     if (error.response.status === 409) {

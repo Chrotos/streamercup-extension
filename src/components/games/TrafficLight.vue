@@ -1,10 +1,16 @@
 <template>
-  <div id="phaser" />
+  <div class="flex flex-col justify-center gap-3 dark:drop-shadow-[0px_0px_1px_white]">
+    <div class="flex justify-center">
+      <div class="text-2xl">Achtung Ampel</div>
+    </div>
+
+    <canvas ref="phaser" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import * as Phaser from 'phaser';
-import { onBeforeUnmount, onMounted, type Ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
 import GameConfig = Phaser.Types.Core.GameConfig
 import Rectangle = Phaser.GameObjects.Rectangle
 import Pointer = Phaser.Input.Pointer
@@ -26,61 +32,61 @@ const selectedFillStyle = {
 const bridgePositions = [
   {
     x: 60,
-    y: 245,
+    y: 45,
     height: 23,
     width: 60
   },
   {
     x: 60,
-    y: 350,
+    y: 150,
     height: 23,
     width: 82
   },
   {
     x: 160,
-    y: 255,
+    y: 55,
     height: 23,
     width: 82
   },
   {
     x: 198,
-    y: 340,
+    y: 140,
     height: 23,
     width: 70
   },
   {
     x: 302,
-    y: 235,
+    y: 35,
     height: 23,
     width: 70
   },
   {
     x: 285,
-    y: 358,
+    y: 158,
     height: 23,
     width: 70
   },
   {
     x: 450,
-    y: 245,
+    y: 45,
     height: 23,
     width: 67
   },
   {
     x: 420,
-    y: 350,
+    y: 150,
     height: 23,
     width: 82
   },
   {
     x: 556,
-    y: 265,
+    y: 65,
     height: 23,
     width: 70
   },
   {
     x: 553,
-    y: 332,
+    y: 132,
     height: 23,
     width: 72
   },
@@ -91,6 +97,7 @@ declare type Clickable = Rectangle & {
   selected?: boolean
 }
 
+const phaser = ref(null)
 
 const config = useConfigStore()
 
@@ -110,11 +117,11 @@ onMounted(() => {
   const config: GameConfig = {
     type: Phaser.CANVAS,
     width: 600,
-    height: 600,
-    parent: 'phaser',
+    height: 300,
+    canvas: phaser.value,
     transparent: true,
     scale: {
-      mode: Phaser.Scale.FIT
+      mode: Phaser.Scale.FIT,
     },
     banner: false,
     scene: {
@@ -122,7 +129,7 @@ onMounted(() => {
         this.load.image('area', 'img/traffic_light.png');
       },
       create: function () {
-        area = this.add.image(600 / 2, 600 / 2, 'area');
+        area = this.add.image(600 / 2, 300 / 2, 'area');
         area.setScale(0.33);
 
         bridges.forEach((bridge) => {
@@ -140,7 +147,6 @@ onMounted(() => {
             }
           }
         })
-        this.add.text(600 / 2, 30, 'Achtung Ampel', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();
         this.input.setTopOnly(true);

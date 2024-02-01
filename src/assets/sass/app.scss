@@ -39,7 +39,7 @@ footer {
     vertical-align: center;
 }
 
-.container {
+.bg-img {
     background-image: url('@/assets/img/background/extension.png');
     background-size: cover;
     background-position: center;
@@ -60,11 +60,6 @@ footer {
 .center {
     width: 50%;
     margin: auto;
-}
-
-.content {
-    height: calc(100% - 38px - 46px);
-    margin-top: 38px;
 }
 
 body .light.mobile {
