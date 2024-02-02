@@ -3,9 +3,9 @@
     'hover:scale-105 dark:hover:bg-twitch-selected dark:active:bg-twitch-selected': !voted
   }]">
     <div class="flex flex-col rounded-lg text-center justify-center gap-4 py-5 px-5">
-      <div class="relative">
+      <div class="relative flex justify-center">
         <img class="rounded shadow-md object-cover" :src="option.image_url" alt="">
-        <div class="absolute text-[10px] -bottom-1.5 -right-2 bg-red-500 rounded-lg px-1.5">
+        <div class="absolute text-[10px] -bottom-1.5 -right-0 bg-red-500 rounded-lg px-1.5">
           {{ option.votes }}
         </div>
       </div>
