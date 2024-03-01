@@ -16,8 +16,17 @@ export default {
         secondary: '#FAB4FF',
         light: '#F0F0FF',
         dark: '#0E0E10',
-        'twitch-dark': '#18181B',
+        'twitch-dark': '#' +
+          '',
         'twitch-selected': '#28181B'
+      },
+      keyframes: {
+        pulsate: {
+          '50%': { 'box-shadow': '0px 0px 0px'}
+        }
+      },
+      animation: {
+        pulsate: 'pulsate 5s ease-in-out infinite'
       }
     },
   },

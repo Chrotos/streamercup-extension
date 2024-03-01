@@ -11,10 +11,12 @@
               <ChooseWisely v-else-if="gameId === GameID.Waehle_weise" :key="GameID.Waehle_weise" />
               <ComboCannon v-else-if="gameId === GameID.Kombi_Kanone" :key="GameID.Kombi_Kanone" />
               <CopyStructures v-else-if="gameId === GameID.Konstrukte_kopieren" :key="GameID.Konstrukte_kopieren" />
+              <EnergyEntropy v-else-if="gameId === GameID.Energie_Entropie" :key="GameID.Energie_Entropie" />
               <EstimateSheeps v-else-if="gameId === GameID.Schaefchen_schaetzen" :key="GameID.Schaefchen_schaetzen" />
               <FloeNudging v-else-if="gameId === GameID.Schollen_Schubser" :key="GameID.Schollen_Schubser" />
               <FoldFigures v-else-if="gameId === GameID.Figuren_falten" :key="GameID.Figuren_falten" />
               <MatchingPlatform v-else-if="gameId === GameID.Passende_Plattform" :key="GameID.Passende_Plattform" />
+              <PotionPanic v-else-if="gameId === GameID.Potion_Panik" :key="GameID.Potion_Panik" />
               <PuzzlePortrait v-else-if="gameId === GameID.Puzzle_Portrait" :key="GameID.Puzzle_Portrait" />
               <RadiusEraser v-else-if="gameId === GameID.Radius_Radierer" :key="GameID.Radius_Radierer" />
               <SharpPath v-else-if="gameId === GameID.Scharfe_Schneise" :key="GameID.Scharfe_Schneise" />
@@ -70,8 +72,6 @@ import SweetsCatcher from '@/components/games/SweetsCatcher.vue'
 import SimonSays from '@/components/games/SimonSays.vue'
 import TimeCounter from '@/components/games/TimeCounter.vue'
 import TrafficLight from '@/components/games/TrafficLight.vue'
-/*
- */
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 import { useStateStore } from '@/stores/state.ts'
@@ -81,6 +81,9 @@ import { storeToRefs } from 'pinia'
 import { useConfigStore } from '@/stores/configuration'
 import { GameID, Phase } from '@/types'
 import VotingNew from '@/components/voting/VotingNew.vue'
+//import moment from 'moment'
+import PotionPanic from '@/components/games/PotionPanic.vue'
+import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
 
 
 const state = useStateStore()
@@ -97,12 +100,34 @@ const authenticated = computed(() => !!userId.value)
 onMounted(() => {
   // TODO remove demo data
   phase.value = Phase.Game
-  gameId.value = GameID.Achtung_Ampel
+  gameId.value = GameID.Energie_Entropie
   gameData.value = {
-    bridges: [
-      1,2,3,4,5,6,7,8,9,10,11,12
+    active: true
+  }
+  //phase.value = Phase.Voting
+  /*
+  voteData.value = {
+    title: '! VOTING !',
+    end_date: moment().add(2, 'minutes'),
+    options: [
+      {
+        game_id: 'traffic_light',
+        name: 'Maulwurf Mutprobe',
+        description: 'Spieler können mit ihrem Knopf ihre Figur entweder herauskommen oder zurückziehen lassen. Der Spieler mit der meisten Zeit draußen gewinnt. Der Maulwurf versucht die Spieler zu eliminieren',
+        image_url: 'img/games/test.png',
+        votes: 10,
+        new: true
+      },
+      {
+        game_id: 'time_counter',
+        name: 'Passende Plattform',
+        description: 'Spieler versuchen so lange wie möglich auf den Plattformen zu bleiben. Alle Plattformen in einer anderen Farbe als auf der Tafel verschwinden nach einer random Zeit zu einem Ton.',
+        image_url: 'img/games/test.png',
+        votes: 4711
+      }
     ]
   }
+   */
 })
 
 </script>

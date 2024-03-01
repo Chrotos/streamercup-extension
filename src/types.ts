@@ -1,6 +1,6 @@
 import type {
-  ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EstimateSheeps, FloeNudging, FoldFigures, MatchingPlatform,
-  PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher, TrafficLight, TimeCounter
+  ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures, MatchingPlatform,
+  PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher, TrafficLight, TimeCounter
 } from '@/types/games'
 
 export enum Phase {
@@ -26,7 +26,9 @@ export enum GameID {
   Suessigkeiten_Schnapper,
   Simon_says,
   Zeit_Zaehler,
-  Achtung_Ampel
+  Achtung_Ampel,
+  Potion_Panik,
+  Energie_Entropie
 }
 
 export interface Game {
@@ -34,11 +36,11 @@ export interface Game {
   data: GameData
 }
 
-export type GameData = CollectSheeps.CollectSheepsData | SharpPath.SharpPathData | SoundSequence.SoundSequenceData |
+export type GameData = CollectSheeps.CollectSheepsData | SharpPath.SharpPathData | SoundSequence.SoundSequenceData | PotionPanic.PotionPanicData |
                         PuzzlePortrait.PuzzlePortraitData | TrafficLight.TrafficLightData | ChooseWisely.ChooseWiselyData |
-                        SweetsCatcher.SweetsCatcherData | FloeNudging.FloeNudgingData | EstimateSheeps.EstimateSheepsData |
-                        FoldFigures.FoldFiguresData | RadiusEraser.RadiusEraserData | SimonSays.SimonSaysData |
-                        ComboCannon.ComboCannonData | TimeCounter.TimeCounterData | CopyStructures.CopyStructuresData |
+                        SweetsCatcher.SweetsCatcherData | FloeNudging.FloeNudgingData | EnergyEntropy.EnergyEntropyData |
+                        EstimateSheeps.EstimateSheepsData | FoldFigures.FoldFiguresData | RadiusEraser.RadiusEraserData |
+                        SimonSays.SimonSaysData | ComboCannon.ComboCannonData | TimeCounter.TimeCounterData | CopyStructures.CopyStructuresData |
                         MatchingPlatform.MatchingPlatformData
 
 export interface VoteOption {
@@ -47,6 +49,7 @@ export interface VoteOption {
   description: string
   image_url: string
   votes: number
+  new?: boolean
 }
 
 export interface VoteData {

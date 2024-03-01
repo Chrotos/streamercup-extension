@@ -4,8 +4,24 @@ import type { ContextData } from '@/stores/extension'
 import { useExtensionStore } from '@/stores/extension'
 import Pusher from 'pusher-js'
 import { useConfigStore } from '@/stores/configuration'
-import type { GameData, VoteData } from '@/types'
-import { GameID, Phase } from '@/types'
+import { type GameData, GameID, Phase, type VoteData } from '@/types'
+import type { EstimateSheepsData } from '@/types/estimateSheeps'
+import type { SoundSequenceData } from '@/types/soundSequence'
+import type { SharpPathData } from '@/types/sharpPath'
+import type { PuzzlePortraitData } from '@/types/puzzlePortrait'
+import type { TrafficLightData } from '@/types/trafficLight'
+import type { ChooseWiselyData } from '@/types/chooseWisely'
+import type { SweetsCatcherData } from '@/types/sweetsCatcher'
+import type { FloeNudgingData } from '@/types/floeNudging'
+import type { FoldFiguresData } from '@/types/foldFigures'
+import type { RadiusEraserData } from '@/types/radiusEraser'
+import type { SimonSaysData } from '@/types/simonSays'
+import type { ComboCannonData } from '@/types/comboCannon'
+import type { TimeCounterData } from '@/types/timeCounter'
+import type { CopyStructuresData } from '@/types/copyStructures'
+import type { MatchingPlatformData } from '@/types/matchingPlatform'
+import type { EnergyEntropyData } from '@/types/energyEntropy'
+import type { PotionPanicData } from '@/types/potionPanic'
 
 export const useStateStore = defineStore('state', () => {
     const config = useConfigStore()
@@ -25,334 +41,205 @@ export const useStateStore = defineStore('state', () => {
     const theme = ref('light')
     const platform = ref('web')
 
-    /*
     function processStateMessage(messageName: string, message: any) {
         switch (messageName) {
             case 'voting':
-                let newVoting = false;
-                if (!voting.value?.title || !voting.value?.options) {
+                if (!voteData.value?.title || !voteData.value?.options) {
                     if (message?.title && message?.options) {
                         voted.value = false;
-                        newVoting = true;
                     }
                 }
-                voting.value = message ?? {};
-                if (newVoting) {
-                    //this.countDownTimer();
+                voteData.value = message
+
+                if (voteData.value?.options) {
+                    phase.value = Phase.Voting
+                } else {
+                    phase.value = Phase.Pause
                 }
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
                 break;
             case 'sheep':
-                //voting.value = {};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                //sheep.value = message ?? {gates:[]};
+                gameData.value = message
+
+                if ((gameData.value as EstimateSheepsData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Schaefchen_schaetzen
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'sound_sequence':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                soundSequence.value = message ?? {players: []};
+                gameData.value = message
+
+                if ((gameData.value as SoundSequenceData)?.players) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Sound_Sequenz
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'sharp_path':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                sharpPath.value = message ?? {walls: []};
+                gameData.value = message
+
+                if ((gameData.value as SharpPathData)?.walls) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Scharfe_Schneise
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'puzzle_portrait':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                puzzlePortrait.value = message ?? {players: []};
+                gameData.value = message
+
+                if ((gameData.value as PuzzlePortraitData)?.players) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Puzzle_Portrait
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'traffic_light':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                trafficLight.value = message ?? {bridges: []};
+                gameData.value = message
+
+                if ((gameData.value as TrafficLightData)?.bridges) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Achtung_Ampel
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'choose_wisely':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                chooseWisely.value = message ?? {platforms: []};
+                gameData.value = message
+
+                if ((gameData.value as ChooseWiselyData)?.platforms) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Waehle_weise
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'sweets_catcher':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                sweetsCatcher.value = message ?? {conditions: []};
+                gameData.value = message
+
+                if ((gameData.value as SweetsCatcherData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Suessigkeiten_Schnapper
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'floe_nudging':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                floeNudging.value = message ?? {players: []};
+                gameData.value = message
+
+                if ((gameData.value as FloeNudgingData)?.players) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Schollen_Schubser
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'estimate_sheeps':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                foldFigures.value = {active: false}
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                estimateSheeps.value = message ?? {conditions: []};
+                gameData.value = message
+
+                if ((gameData.value as EstimateSheepsData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Schaefchen_schaetzen
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'fold_figures':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                foldFigures.value = message ?? {active: false};
+                gameData.value = message
+
+                if ((gameData.value as FoldFiguresData)?.active) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Figuren_falten
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break
             case 'radius_eraser':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false};
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                radiusEraser.value = message ?? {conditions: []};
+                gameData.value = message
+
+                if ((gameData.value as RadiusEraserData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Radius_Radierer
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break
             case 'simon_says':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false};
-                radiusEraser.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                simonSays.value = message ?? {conditions: []};
+                gameData.value = message
+
+                if ((gameData.value as SimonSaysData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Simon_says
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'combo_cannon':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false};
-                radiusEraser.value = {conditions: []};
-                simonSays.value = {conditions: []};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                comboCannon.value = message ?? {active: false};
+                gameData.value = message
+
+                if ((gameData.value as ComboCannonData)?.active) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Kombi_Kanone
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'time_counter':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false};
-                radiusEraser.value = {conditions: []};
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = {platforms: []};
-                timeCounter.value = message ?? {conditions: []};
+                gameData.value = message
+
+                if ((gameData.value as TimeCounterData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Zeit_Zaehler
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'copy_structures':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false};
-                radiusEraser.value = {conditions: []};
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                matchingPlatform.value = {platforms: []};
-                copyStructures.value = message ?? {structures: []};
+                gameData.value = message
+
+                if ((gameData.value as CopyStructuresData)?.structures) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Konstrukte_kopieren
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
             case 'matching_platform':
-                //voting.value = {};
-                //sheep.value = {gates:[]};
-                soundSequence.value = {players: []};
-                sharpPath.value = {walls: []};
-                puzzlePortrait.value = {players: []};
-                trafficLight.value = {bridges: []};
-                chooseWisely.value = {platforms: []};
-                sweetsCatcher.value = {conditions: []};
-                floeNudging.value = {players: []};
-                estimateSheeps.value = {conditions: []};
-                foldFigures.value = {active: false};
-                radiusEraser.value = {conditions: []};
-                simonSays.value = {conditions: []};
-                comboCannon.value = {active: false};
-                timeCounter.value = {conditions: []};
-                copyStructures.value = {structures: []};
-                matchingPlatform.value = message ?? {platforms: []};
+                gameData.value = message
+
+                if ((gameData.value as MatchingPlatformData)?.platforms) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Passende_Plattform
+                } else {
+                    phase.value = Phase.Pause
+                }
+                break;
+            case 'energy_entropy':
+                gameData.value = message
+
+                if ((gameData.value as EnergyEntropyData)?.active) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Energie_Entropie
+                } else {
+                    phase.value = Phase.Pause
+                }
+                break;
+            case 'potion_panic':
+                gameData.value = message
+
+                if ((gameData.value as PotionPanicData)?.potions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Potion_Panik
+                } else {
+                    phase.value = Phase.Pause
+                }
                 break;
         }
     }
-     */
+
 
     function connectSocket(userId: string|null) {
         pusher = new Pusher(config.getSocketKey(), {
@@ -371,7 +258,7 @@ export const useStateStore = defineStore('state', () => {
 
         if (userId) {
           pusher.subscribe('presence-' + userId).bind_global(onPrivateMessage);
-          //pusher.subscribe('cache-global').bind_global(processStateMessage);
+          pusher.subscribe('cache-global').bind_global(processStateMessage);
         }
     }
 
