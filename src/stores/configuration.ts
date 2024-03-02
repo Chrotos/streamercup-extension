@@ -5,7 +5,7 @@ export const useConfigStore = defineStore('config', () => {
     const branding = ref<string|null>(null) // Valid: twitch
 
     function getApiBaseUrl() {
-        return !isReview() && !isTesting() ? 'https://streamercup-api.chrotos.net/api/' : 'https://streamercup-api-mock.chrotos.net/api/';
+        return !isReview() /* && !isTesting()*/ ? 'https://streamercup-api.chrotos.net/api/' : 'https://streamercup-api-mock.chrotos.net/api/';
     }
 
     function getApiUrl(endpoint: string) {
@@ -46,7 +46,7 @@ export const useConfigStore = defineStore('config', () => {
             return window.location.host.includes('twitch.tv') ? 'hosted_test' : 'testing';
         }
 
-        return params.get('state');
+        return params.get('state') ?? 'testing';
     }
 
     function getQueryParams() {

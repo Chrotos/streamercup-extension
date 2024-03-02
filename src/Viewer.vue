@@ -99,11 +99,13 @@ const authenticated = computed(() => !!userId.value)
 
 onMounted(() => {
   // TODO remove demo data
+  /*
   phase.value = Phase.Game
   gameId.value = GameID.Energie_Entropie
   gameData.value = {
     active: true
   }
+   */
   //phase.value = Phase.Voting
   /*
   voteData.value = {

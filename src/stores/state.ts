@@ -252,7 +252,9 @@ export const useStateStore = defineStore('state', () => {
             channelAuthorization: {
                 transport: 'ajax',
                 endpoint: config.getSocketAuthorizationUrl(),
-                headersProvider: () => extension.axios.defaults.headers.common
+                headers: {
+                    Authorization: extension.axios.defaults.headers.common.Authorization
+                }
             },
         });
 

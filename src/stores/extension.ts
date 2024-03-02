@@ -33,9 +33,8 @@ export const useExtensionStore = defineStore('extension', () => {
     const state = useStateStore()
     const config = useConfigStore()
 
-    const axiosInstance = ref(axios.create({
-        withCredentials: true
-    }))
+    const axiosInstance = ref(axios)
+    axiosInstance.value.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
     const twitch = ref<any>(window.Twitch ? window.Twitch.ext : null)
 
@@ -54,9 +53,7 @@ export const useExtensionStore = defineStore('extension', () => {
 
         if (!finishedLoading.value) {
             finishedLoading.value = true
-            // TODO remove
-            console.log('Connecting to Socket')
-            //state.connectSocket(auth.userId)
+            state.connectSocket(userId.value)
         }
     }
     window.authorized = onAuthorized
