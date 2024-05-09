@@ -10,6 +10,7 @@ import * as MatchingPlatform from './matchingPlatform'
 import * as PotionPanic from './potionPanic'
 import * as PuzzlePortrait from './puzzlePortrait'
 import * as RadiusEraser from './radiusEraser'
+import * as RapidCurrent from './rapidCurrent'
 import * as SharpPath from './sharpPath'
 import * as SimonSays from './simonSays'
 import * as SoundSequence from './soundSequence'
@@ -20,6 +21,6 @@ import * as TreasureHunter from './treasureHunter'
 
 export {
   ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures,
-  MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher,
+  MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, RapidCurrent, SharpPath, SimonSays, SoundSequence, SweetsCatcher,
   TimeCounter, TrafficLight, TreasureHunter
 }

@@ -1,10 +1,10 @@
 export enum TreasureHunterConditionType {
   Null,
-  Switch_Players,
+  Increase_Value,
+  Decrease_Value,
   Additional_Area,
-  Randomize_Values,
-  Recreate_Sites,
-  Spawn_Golems
+  Spawn_Golems,
+  Recreate_Sites
 }
 
 export interface TreasureHunterCondition {

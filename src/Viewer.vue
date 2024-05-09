@@ -19,6 +19,7 @@
               <PotionPanic v-else-if="gameId === GameID.Potion_Panik" :key="GameID.Potion_Panik" />
               <PuzzlePortrait v-else-if="gameId === GameID.Puzzle_Portrait" :key="GameID.Puzzle_Portrait" />
               <RadiusEraser v-else-if="gameId === GameID.Radius_Radierer" :key="GameID.Radius_Radierer" />
+              <RapidCurrent v-else-if="gameId === GameID.Schnelle_Stroemung" :key="GameID.Schnelle_Stroemung" />
               <SharpPath v-else-if="gameId === GameID.Scharfe_Schneise" :key="GameID.Scharfe_Schneise" />
               <SoundSequence v-else-if="gameId === GameID.Sound_Sequenz" :key="GameID.Sound_Sequenz" />
               <SweetsCatcher v-else-if="gameId === GameID.Suessigkeiten_Schnapper" :key="GameID.Suessigkeiten_Schnapper" />
@@ -86,6 +87,7 @@ import VotingNew from '@/components/voting/VotingNew.vue'
 import PotionPanic from '@/components/games/PotionPanic.vue'
 import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
 import TreasureHunter from '@/components/games/TreasureHunter.vue'
+import RapidCurrent from '@/components/games/RapidCurrent.vue'
 
 
 const state = useStateStore()
