@@ -16,9 +16,10 @@ import * as SoundSequence from './soundSequence'
 import * as SweetsCatcher from './sweetsCatcher'
 import * as TimeCounter from './timeCounter'
 import * as TrafficLight from './trafficLight'
+import * as TreasureHunter from './treasureHunter'
 
 export {
   ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures,
   MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher,
-  TimeCounter, TrafficLight
+  TimeCounter, TrafficLight, TreasureHunter
 }

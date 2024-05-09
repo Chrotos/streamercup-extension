@@ -22,6 +22,7 @@ import type { CopyStructuresData } from '@/types/copyStructures'
 import type { MatchingPlatformData } from '@/types/matchingPlatform'
 import type { EnergyEntropyData } from '@/types/energyEntropy'
 import type { PotionPanicData } from '@/types/potionPanic'
+import type { TreasureHunterData } from '@/types/treasureHunter'
 
 export const useStateStore = defineStore('state', () => {
     const config = useConfigStore()
@@ -233,6 +234,16 @@ export const useStateStore = defineStore('state', () => {
                 if ((gameData.value as PotionPanicData)?.potions) {
                     phase.value = Phase.Game
                     gameId.value = GameID.Potion_Panik
+                } else {
+                    phase.value = Phase.Pause
+                }
+                break;
+            case 'treasure_hunter':
+                gameData.value = message
+
+                if ((gameData.value as TreasureHunterData)?.conditions) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Schatz_Sammler
                 } else {
                     phase.value = Phase.Pause
                 }

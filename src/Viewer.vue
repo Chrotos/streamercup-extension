@@ -25,6 +25,7 @@
               <SimonSays v-else-if="gameId === GameID.Simon_says" :key="GameID.Simon_says" />
               <TimeCounter v-else-if="gameId === GameID.Zeit_Zaehler" :key="GameID.Zeit_Zaehler" />
               <TrafficLight v-else-if="gameId === GameID.Achtung_Ampel" :key="GameID.Achtung_Ampel" />
+              <TreasureHunter v-else-if="gameId === GameID.Schatz_Sammler" :key="GameID.Schatz_Sammler" />
             </div>
           </template>
 
@@ -84,6 +85,7 @@ import VotingNew from '@/components/voting/VotingNew.vue'
 //import moment from 'moment'
 import PotionPanic from '@/components/games/PotionPanic.vue'
 import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
+import TreasureHunter from '@/components/games/TreasureHunter.vue'
 
 
 const state = useStateStore()

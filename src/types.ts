@@ -1,6 +1,6 @@
 import type {
   ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures, MatchingPlatform,
-  PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher, TrafficLight, TimeCounter
+  PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher, TrafficLight, TimeCounter, TreasureHunter
 } from '@/types/games'
 
 export enum Phase {
@@ -28,7 +28,8 @@ export enum GameID {
   Zeit_Zaehler,
   Achtung_Ampel,
   Potion_Panik,
-  Energie_Entropie
+  Energie_Entropie,
+  Schatz_Sammler
 }
 
 export interface Game {
@@ -41,7 +42,7 @@ export type GameData = CollectSheeps.CollectSheepsData | SharpPath.SharpPathData
                         SweetsCatcher.SweetsCatcherData | FloeNudging.FloeNudgingData | EnergyEntropy.EnergyEntropyData |
                         EstimateSheeps.EstimateSheepsData | FoldFigures.FoldFiguresData | RadiusEraser.RadiusEraserData |
                         SimonSays.SimonSaysData | ComboCannon.ComboCannonData | TimeCounter.TimeCounterData | CopyStructures.CopyStructuresData |
-                        MatchingPlatform.MatchingPlatformData
+                        MatchingPlatform.MatchingPlatformData | TreasureHunter.TreasureHunterData
 
 export interface VoteOption {
   game_id: string
