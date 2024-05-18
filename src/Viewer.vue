@@ -7,7 +7,8 @@
         <template v-if="authenticated">
           <template v-if="phase === Phase.Game && gameData && gameId">
             <div class="flex flex-col justify-center">
-              <CollectSheeps v-if="gameId === GameID.Schafe_sammeln" :key="GameID.Schafe_sammeln" />
+              <BeatTheBeast v-if="gameId === GameID.Bestien_Bangen" :key="GameID.Bestien_Bangen" />
+              <CollectSheeps v-else-if="gameId === GameID.Schafe_sammeln" :key="GameID.Schafe_sammeln" />
               <ChooseWisely v-else-if="gameId === GameID.Waehle_weise" :key="GameID.Waehle_weise" />
               <ComboCannon v-else-if="gameId === GameID.Kombi_Kanone" :key="GameID.Kombi_Kanone" />
               <CopyStructures v-else-if="gameId === GameID.Konstrukte_kopieren" :key="GameID.Konstrukte_kopieren" />
@@ -88,6 +89,7 @@ import PotionPanic from '@/components/games/PotionPanic.vue'
 import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
 import TreasureHunter from '@/components/games/TreasureHunter.vue'
 import RapidCurrent from '@/components/games/RapidCurrent.vue'
+import BeatTheBeast from '@/components/games/BeatTheBeast.vue'
 
 
 const state = useStateStore()
@@ -104,12 +106,23 @@ const authenticated = computed(() => !!userId.value)
 onMounted(() => {
   // TODO remove demo data
   /*
-  phase.value = Phase.Game
-  gameId.value = GameID.Energie_Entropie
-  gameData.value = {
-    active: true
-  }
-   */
+  setTimeout(() => {
+    phase.value = Phase.Game
+    gameId.value = GameID.Bestien_Bangen
+    gameData.value = {
+      question: {
+        question: 'Welche Fußballnationalmannschaft trägt 5 Sterne auf dem Trikot?\tDeutschland\tItalien\tBrasilien',
+        answers: [
+          'Status',
+          'Staten',
+          'Stati',
+          'Statusse'
+        ]
+      }
+    }
+  }, 1000)
+  */
+
   //phase.value = Phase.Voting
   /*
   voteData.value = {

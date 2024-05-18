@@ -24,6 +24,7 @@ import type { EnergyEntropyData } from '@/types/energyEntropy'
 import type { PotionPanicData } from '@/types/potionPanic'
 import type { TreasureHunterData } from '@/types/treasureHunter'
 import type { RapidCurrentData } from '@/types/rapidCurrent'
+import type { BeatTheBeastData } from '@/types/beatTheBeast'
 
 export const useStateStore = defineStore('state', () => {
     const config = useConfigStore()
@@ -255,6 +256,16 @@ export const useStateStore = defineStore('state', () => {
                 if ((gameData.value as RapidCurrentData)?.conditions?.length > 0) {
                     phase.value = Phase.Game
                     gameId.value = GameID.Schnelle_Stroemung
+                } else {
+                    phase.value = Phase.Pause
+                }
+                break;
+            case 'beat_the_beast':
+                gameData.value = message
+
+                if ((gameData.value as BeatTheBeastData)?.question) {
+                    phase.value = Phase.Game
+                    gameId.value = GameID.Bestien_Bangen
                 } else {
                     phase.value = Phase.Pause
                 }

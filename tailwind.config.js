@@ -27,6 +27,9 @@ export default {
       },
       animation: {
         pulsate: 'pulsate 5s ease-in-out infinite'
+      },
+      backgroundImage: {
+        'extension': "url(img/extension.png)"
       }
     },
   },

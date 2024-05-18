@@ -1,3 +1,4 @@
+import * as BeatTheBeast from './beatTheBeast'
 import * as ChooseWisely from './chooseWisely'
 import * as CollectSheeps from './collectSheeps'
 import * as ComboCannon from './comboCannon'
@@ -20,7 +21,7 @@ import * as TrafficLight from './trafficLight'
 import * as TreasureHunter from './treasureHunter'
 
 export {
-  ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures,
-  MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, RapidCurrent, SharpPath, SimonSays, SoundSequence, SweetsCatcher,
-  TimeCounter, TrafficLight, TreasureHunter
+  BeatTheBeast, ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging,
+  FoldFigures, MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, RapidCurrent, SharpPath, SimonSays,
+  SoundSequence, SweetsCatcher, TimeCounter, TrafficLight, TreasureHunter
 }

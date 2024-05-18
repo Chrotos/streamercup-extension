@@ -1,6 +1,7 @@
 import type {
-  ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures, MatchingPlatform,
-  PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher, TrafficLight, TimeCounter, TreasureHunter, RapidCurrent
+  ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging, FoldFigures,
+  MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, SharpPath, SimonSays, SoundSequence, SweetsCatcher,
+  TrafficLight, TimeCounter, TreasureHunter, RapidCurrent, BeatTheBeast
 } from '@/types/games'
 
 export enum Phase {
@@ -30,7 +31,8 @@ export enum GameID {
   Potion_Panik,
   Energie_Entropie,
   Schatz_Sammler,
-  Schnelle_Stroemung
+  Schnelle_Stroemung,
+  Bestien_Bangen
 }
 
 export interface Game {
@@ -43,7 +45,8 @@ export type GameData = CollectSheeps.CollectSheepsData | SharpPath.SharpPathData
                         SweetsCatcher.SweetsCatcherData | FloeNudging.FloeNudgingData | EnergyEntropy.EnergyEntropyData |
                         EstimateSheeps.EstimateSheepsData | FoldFigures.FoldFiguresData | RadiusEraser.RadiusEraserData |
                         SimonSays.SimonSaysData | ComboCannon.ComboCannonData | TimeCounter.TimeCounterData | CopyStructures.CopyStructuresData |
-                        MatchingPlatform.MatchingPlatformData | TreasureHunter.TreasureHunterData | RapidCurrent.RapidCurrentData
+                        MatchingPlatform.MatchingPlatformData | TreasureHunter.TreasureHunterData | RapidCurrent.RapidCurrentData |
+                        BeatTheBeast.BeatTheBeastData
 
 export interface VoteOption {
   game_id: string
