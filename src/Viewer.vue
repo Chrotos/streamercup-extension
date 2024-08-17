@@ -28,6 +28,7 @@
               <TimeCounter v-else-if="gameId === GameID.Zeit_Zaehler" :key="GameID.Zeit_Zaehler" />
               <TrafficLight v-else-if="gameId === GameID.Achtung_Ampel" :key="GameID.Achtung_Ampel" />
               <TreasureHunter v-else-if="gameId === GameID.Schatz_Sammler" :key="GameID.Schatz_Sammler" />
+              <MonsterSlaughter v-else-if="gameId === GameID.Monster_Metzeln" :key="GameID.Monster_Metzeln" />
             </div>
           </template>
 
@@ -90,6 +91,7 @@ import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
 import TreasureHunter from '@/components/games/TreasureHunter.vue'
 import RapidCurrent from '@/components/games/RapidCurrent.vue'
 import BeatTheBeast from '@/components/games/BeatTheBeast.vue'
+import MonsterSlaughter from '@/components/games/MonsterSlaughter.vue'
 
 
 const state = useStateStore()
@@ -108,17 +110,33 @@ onMounted(() => {
   /*
   setTimeout(() => {
     phase.value = Phase.Game
-    gameId.value = GameID.Bestien_Bangen
+    gameId.value = GameID.Monster_Metzeln
     gameData.value = {
-      question: {
-        question: 'Welche Fußballnationalmannschaft trägt 5 Sterne auf dem Trikot?\tDeutschland\tItalien\tBrasilien',
-        answers: [
-          'Status',
-          'Staten',
-          'Stati',
-          'Statusse'
-        ]
-      }
+      bossNames: ['Illusionsmeister', 'Allsehendes Auge'],
+      arenaEffects: [
+        {
+          name: 'Pfeile',
+          image: 'arrow',
+        },
+        {
+          name: 'Effekt',
+          image: 'Potion',
+        }
+      ],
+      shopEffects: [
+        {
+          name: '-15 Sek. Shopzeit',
+          image: 'clock',
+        },
+        {
+          name: 'Rabatt',
+          image: 'arrow_down',
+        },
+        {
+          name: 'Aufpreis',
+          image: 'arrow_up',
+        }
+      ]
     }
   }, 1000)
   */

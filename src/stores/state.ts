@@ -25,6 +25,7 @@ import type { PotionPanicData } from '@/types/potionPanic'
 import type { TreasureHunterData } from '@/types/treasureHunter'
 import type { RapidCurrentData } from '@/types/rapidCurrent'
 import type { BeatTheBeastData } from '@/types/beatTheBeast'
+import type { MonsterSlaughterData } from '@/types/monsterSlaughter'
 
 export const useStateStore = defineStore('state', () => {
     const config = useConfigStore()
@@ -270,6 +271,16 @@ export const useStateStore = defineStore('state', () => {
                     phase.value = Phase.Pause
                 }
                 break;
+                case 'monster_slaughter':
+                    gameData.value = message
+
+                    if ((gameData.value as MonsterSlaughterData)?.arena_effects) {
+                        phase.value = Phase.Game
+                        gameId.value = GameID.Monster_Metzeln
+                    } else {
+                        phase.value = Phase.Pause
+                    }
+                    break;
         }
     }
 
