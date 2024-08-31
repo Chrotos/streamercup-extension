@@ -20,9 +20,10 @@ import * as TimeCounter from './timeCounter'
 import * as TrafficLight from './trafficLight'
 import * as TreasureHunter from './treasureHunter'
 import * as MonsterSlaughter from './monsterSlaughter'
+import * as HallwayHaste from './hallwayHaste'
 
 export {
   BeatTheBeast, ChooseWisely, CollectSheeps, ComboCannon, CopyStructures, EnergyEntropy, EstimateSheeps, FloeNudging,
   FoldFigures, MatchingPlatform, PotionPanic, PuzzlePortrait, RadiusEraser, RapidCurrent, SharpPath, SimonSays,
-  SoundSequence, SweetsCatcher, TimeCounter, TrafficLight, TreasureHunter, MonsterSlaughter
+  SoundSequence, SweetsCatcher, TimeCounter, TrafficLight, TreasureHunter, MonsterSlaughter, HallwayHaste
 }

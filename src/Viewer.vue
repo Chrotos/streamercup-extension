@@ -29,6 +29,7 @@
               <TrafficLight v-else-if="gameId === GameID.Achtung_Ampel" :key="GameID.Achtung_Ampel" />
               <TreasureHunter v-else-if="gameId === GameID.Schatz_Sammler" :key="GameID.Schatz_Sammler" />
               <MonsterSlaughter v-else-if="gameId === GameID.Monster_Metzeln" :key="GameID.Monster_Metzeln" />
+              <HallwayHaste v-else-if="gameId === GameID.Hallway_Haste" :key="GameID.Hallway_Haste" />
             </div>
           </template>
 
@@ -92,6 +93,7 @@ import TreasureHunter from '@/components/games/TreasureHunter.vue'
 import RapidCurrent from '@/components/games/RapidCurrent.vue'
 import BeatTheBeast from '@/components/games/BeatTheBeast.vue'
 import MonsterSlaughter from '@/components/games/MonsterSlaughter.vue'
+import HallwayHaste from '@/components/games/HallwayHaste.vue'
 
 
 const state = useStateStore()
