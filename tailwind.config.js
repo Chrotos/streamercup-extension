@@ -16,8 +16,7 @@ export default {
         secondary: '#FAB4FF',
         light: '#F0F0FF',
         dark: '#0E0E10',
-        'twitch-dark': '#' +
-          '',
+        'twitch-dark': '#18181B',
         'twitch-selected': '#28181B'
       },
       keyframes: {

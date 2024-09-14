@@ -86,7 +86,7 @@ import { storeToRefs } from 'pinia'
 import { useConfigStore } from '@/stores/configuration'
 import { GameID, Phase } from '@/types'
 import VotingNew from '@/components/voting/VotingNew.vue'
-//import moment from 'moment'
+import moment from 'moment'
 import PotionPanic from '@/components/games/PotionPanic.vue'
 import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
 import TreasureHunter from '@/components/games/TreasureHunter.vue'
@@ -143,30 +143,35 @@ onMounted(() => {
   }, 1000)
   */
 
-  //phase.value = Phase.Voting
   /*
-  voteData.value = {
-    title: '! VOTING !',
-    end_date: moment().add(2, 'minutes'),
-    options: [
-      {
-        game_id: 'traffic_light',
-        name: 'Maulwurf Mutprobe',
-        description: 'Spieler können mit ihrem Knopf ihre Figur entweder herauskommen oder zurückziehen lassen. Der Spieler mit der meisten Zeit draußen gewinnt. Der Maulwurf versucht die Spieler zu eliminieren',
-        image_url: 'img/games/test.png',
-        votes: 10,
-        new: true
-      },
-      {
-        game_id: 'time_counter',
-        name: 'Passende Plattform',
-        description: 'Spieler versuchen so lange wie möglich auf den Plattformen zu bleiben. Alle Plattformen in einer anderen Farbe als auf der Tafel verschwinden nach einer random Zeit zu einem Ton.',
-        image_url: 'img/games/test.png',
-        votes: 4711
-      }
-    ]
-  }
-   */
+  setTimeout(() => {
+    phase.value = Phase.Voting
+
+    voteData.value = {
+      title: '! VOTING !',
+      end_date: moment().add(2, 'minutes'),
+      options: [
+        {
+          game_id: 'traffic_light',
+          name: 'Maulwurf Mutprobe',
+          description: 'Spieler können mit ihrem Knopf ihre Figur entweder herauskommen oder zurückziehen lassen. Der Spieler mit der meisten Zeit draußen gewinnt. Der Maulwurf versucht die Spieler zu eliminieren',
+          image_url: 'img/games/test.png',
+          votes: 10,
+          new: true
+        },
+        {
+          game_id: 'time_counter',
+          name: 'Passende Plattform',
+          description: 'Spieler versuchen so lange wie möglich auf den Plattformen zu bleiben. Alle Plattformen in einer anderen Farbe als auf der Tafel verschwinden nach einer random Zeit zu einem Ton.',
+          image_url: 'img/games/test.png',
+          votes: 4711,
+          new: false
+        }
+      ]
+    }
+  }, 1000)
+  */
+
 })
 
 </script>

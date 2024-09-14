@@ -1,11 +1,17 @@
 <template>
-  <div :class="['cursor-pointer dark:bg-twitch-dark rounded-lg', {
+  <div :class="['cursor-pointer dark:bg-twitch-dark rounded-lg relative', {
     'hover:scale-105 dark:hover:bg-twitch-selected dark:active:bg-twitch-selected': !voted
   }, {
     'shadow-[0px_0px_20px_1px] shadow-accent animate-pulsate' : option.new
   }, {
     'shadow-md' : !option.new
   }]">
+    <template v-if="option.new">
+      <div class="absolute text-[12px] -top-2 -right-4 bg-accent rounded-lg px-1.5">
+        Neu
+      </div>
+    </template>
+
     <div class="flex flex-col rounded-lg text-center justify-center gap-4 py-5 px-5">
       <div class="relative flex justify-center">
         <img class="rounded shadow-md object-cover" :src="option.image_url" alt="">
