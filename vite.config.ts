@@ -31,7 +31,8 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       input: [
-        resolve(__dirname, 'video_component.html')
+        resolve(__dirname, 'video_component.html'),
+        resolve(__dirname, 'mobile.html')
       ]
     }
   },
@@ -39,5 +40,5 @@ export default defineConfig({
     postcss: {
       plugins: [tailwindcss]
     }
-  }
+  },
 })
