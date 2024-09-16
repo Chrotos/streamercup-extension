@@ -27,43 +27,43 @@ const selectedFillStyle = {
 
 const gates = [
   {
+    x: 65,
+    y: 97,
+    rotate: true
+  },
+  {
+    x: 300,
+    y: 100,
+    rotate: true
+  },
+  {
+    x: 65,
+    y: 205,
+    rotate: true
+  },
+  {
+    x: 300,
+    y: 205,
+    rotate: true
+  },
+  {
     x: 130,
-    y: 170,
-    rotate: true
-  },
-  {
-    x: 480,
-    y: 170,
-    rotate: true
+    y: 35,
+    rotate: false
   },
   {
     x: 130,
-    y: 330,
-    rotate: true
-  },
-  {
-    x: 480,
-    y: 330,
-    rotate: true
-  },
-  {
-    x: 230,
-    y: 70,
+    y: 270,
     rotate: false
   },
   {
-    x: 230,
-    y: 430,
+    x: 233,
+    y: 35,
     rotate: false
   },
   {
-    x: 380,
-    y: 70,
-    rotate: false
-  },
-  {
-    x: 380,
-    y: 430,
+    x: 233,
+    y: 270,
     rotate: false
   },
 ];
@@ -83,32 +83,33 @@ let apiUrl = config.getApiUrl('game/1/');
 onMounted(() => {
   const gameConfig: GameConfig = {
     type: Phaser.CANVAS,
-    width: 600,
-    height: 480,
+    width: 350,
+    height: 300,
     parent: 'phaser',
     scale: {
       mode: Phaser.Scale.FIT
     },
     banner: false,
+    transparent: true,
     scene: {
       preload: function () {
         this.load.image('area', 'img/collect_sheeps.png');
       },
       create: function () {
-        area = this.add.image(600 / 2, 480 / 2, 'area');
-        area.setScale(0.45);
+        area = this.add.image(350 / 2, 290 / 2, 'area');
+        area.setScale(0.30);
         area.setRotation(Math.PI);
 
         gates.forEach((gate, index) => {
-          let width = !gate.rotate ? 50 : 35;
-          let height = !gate.rotate ? 35 : 50;
+          let width = !gate.rotate ? 30 : 25;
+          let height = !gate.rotate ? 25 : 40;
           let clickable: Clickable = this.add.rectangle(gate.x, gate.y, width, height, defaultFillStyle.color, defaultFillStyle.alpha);
           clickable.setInteractive();
           clickable.gate = index;
           clickables.push(clickable);
         })
 
-        this.add.text(600 / 2, 20, 'Schafe sammeln', {font: '40px Arial', fill: '#000000', align: "center"}).setOrigin(0.5, 0.5);
+        this.add.text(350 / 2, 300 / 2, 'Schafe sammeln', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();
         this.input.on('gameobjectover', function (pointer: Pointer, gameObject: Clickable) {

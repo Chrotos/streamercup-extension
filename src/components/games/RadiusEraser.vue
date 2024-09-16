@@ -1,9 +1,9 @@
 <template>
-  <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Radius-Radierer</h1>
-    <div style="margin: auto; width: 66%">
-      <button v-for="condition in gameData.conditions" @click="vote(condition.name)" :disabled="voted === condition.name" style="margin-bottom: 50px">
-        <figure>
+  <div class="flex flex-col gap-8">
+    <h1 class="text-center text-3xl">Radius-Radierer</h1>
+    <div class="flex gap-4">
+      <button v-for="condition in gameData.conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
+        <figure class="flex flex-col gap-3">
           <img :src="`img/${condition.icon}.png`" :alt="String(condition.name)" :data-disabled="voted === condition.name" />
           <figcaption style="text-align: center; width: 100%">{{ condition.name }}</figcaption>
         </figure>

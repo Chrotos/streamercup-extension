@@ -13,12 +13,12 @@ import type { SoundSequenceData } from '@/types/soundSequence'
 import GameConfig = Phaser.Types.Core.GameConfig
 import Pointer = Phaser.Input.Pointer
 
-const startX = 100;
-const endX = 500;
-const cardY = 200;
-const zoneY =  400;
+const startX = 30;
+const endX = 420;
+const cardY = 110;
+const zoneY =  240;
 const zoneDim = 40;
-const gapWidth = 10;
+const gapWidth = 1;
 
 declare type Zone = Phaser.GameObjects.Zone & {
   slot?: number
@@ -49,8 +49,9 @@ onMounted(() => {
 
   const config: GameConfig = {
     type: Phaser.CANVAS,
-    width: 600,
-    height: 480,
+    width: 400,
+    height: 300,
+    transparent: true,
     parent: 'phaser',
     scale: {
       mode: Phaser.Scale.FIT
@@ -69,18 +70,20 @@ onMounted(() => {
           zone.slot = index + 1;
           zones.push(zone);
 
+          this.add.text(zoneX, zoneY, index + 1, {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+
           let graphics = this.add.graphics();
           graphics.lineStyle(2, 0xffff00);
           graphics.strokeRect(zone.x - zone.input?.hitArea.width / 2, zone.y - zone.input?.hitArea.height / 2, zone.input?.hitArea.width, zone.input?.hitArea.height);
 
           const cardX = startX + steps * index + index * gapWidth;
-          let card: Card = this.add.image(cardX, cardY, 'player' + (index + 1)).setInteractive().setScale(0.4);
+          let card: Card = this.add.image(cardX, cardY, 'player' + (index + 1)).setInteractive().setScale(0.3);
           card.player = index + 1;
           cards.push(card);
 
           this.input.setDraggable(card);
         })
-        this.add.text(600 / 2, 30, 'Sound-Sequenz', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+        this.add.text(400 / 2, 30, 'Sound-Sequenz', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         cards.forEach(card => this.children.bringToTop(card));
 

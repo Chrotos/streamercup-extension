@@ -1,9 +1,9 @@
 <template>
-  <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Schollen-Schubser</h1>
-    <div style="width: 100%">
+  <div class="flex flex-col items-center gap-8">
+    <h1 class="text-center text-3xl">Schollen-Schubser</h1>
+    <div class="flex gap-4">
       <button v-for="player in gameData.players" @click="vote(player.id)" :disabled="voted === player.id">
-          <img :src="player.avatar" :data-disabled="voted === player.id" />
+        <img :src="player.avatar" :data-disabled="voted === player.id" />
       </button>
     </div>
   </div>

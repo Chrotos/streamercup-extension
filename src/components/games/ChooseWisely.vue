@@ -21,25 +21,25 @@ declare type Clickable = Rectangle & {
 
 const defaultFillStyle = {
   color: 0x6666ff,
-  alpha: 0.1
+  alpha: 0.1 // TODO 0.1
 }
 const selectedFillStyle = {
   color: Phaser.Display.Color.GetColor(255, 0, 0),
-  alpha: 0.5
+  alpha: 0.5 // TODO 0.5
 }
 
 const platformPositions = [
   {
-    x: 160,
-    y: 305,
-    height: 260,
-    width: 260
+    x: 73,
+    y: 305 / 2,
+    height: 140,
+    width: 140
   },
   {
-    x: 435,
-    y: 305,
-    height: 260,
-    width: 260
+    x: 224.5,
+    y: 305 / 2,
+    height: 142,
+    width: 142
   },
 ];
 
@@ -60,8 +60,8 @@ let apiUrl = config.getApiUrl('game/19/');
 onMounted(() => {
   const gameConfig: GameConfig = {
     type: Phaser.CANVAS,
-    width: 600,
-    height: 600,
+    width: 300,
+    height: 300,
     parent: 'phaser',
     transparent: true,
     scale: {
@@ -73,14 +73,12 @@ onMounted(() => {
         this.load.image('area', 'img/choose_wisely.png');
       },
       create: function () {
-        area = this.add.image(600 / 2, 600 / 2, 'area');
-        area.setScale(0.22);
+        area = this.add.image(300 / 2, 300 / 2, 'area');
+        area.setScale(0.12);
 
         platforms.forEach((platform) => {
           if (platformPositions[platform - 1]) {
             let platformPosition = platformPositions[platform - 1];
-            let width = platformPosition.width;
-            let height = platformPosition.height;
 
             if (platformPosition.x && platformPosition.y) {
               let clickArea: Clickable = this.add.rectangle(platformPosition.x, platformPosition.y, platformPosition.width, platformPosition.height, defaultFillStyle.color, defaultFillStyle.alpha);
@@ -91,7 +89,7 @@ onMounted(() => {
             }
           }
         })
-        this.add.text(600 / 2, 30, 'Wähle Weise', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+        this.add.text(300 / 2, 30, 'Wähle Weise', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();
         this.input.setTopOnly(true);

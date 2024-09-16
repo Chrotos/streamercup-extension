@@ -30,107 +30,107 @@ const selectedFillStyle = {
 }
 
 const platform = {
-  x: 130,
-  y: 130,
-  dimensions: 268 * 0.423
+  x: 122.7,
+  y: 93,
+  dimensions: 51.25
 };
 
 const wallPositions = {
   'TOP_DOWN_1': {
-    x: 472,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 124,
+    y: 58,
+    height: 23,
+    width: 30
   },
   'DOWN_TOP_1': {
-    x: 472,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 124,
+    y: 282,
+    height: 23,
+    width: 30
   },
   'TOP_DOWN_2': {
-    x: 358,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 174,
+    y: 58,
+    height: 23,
+    width: 30
   },
   'DOWN_TOP_2': {
-    x: 358,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 174,
+    y: 282,
+    height: 23,
+    width: 30
   },
   'TOP_DOWN_3': {
-    x: 243,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 227,
+    y: 58,
+    height: 23,
+    width: 30
   },
   'DOWN_TOP_3': {
-    x: 243,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 227,
+    y: 282,
+    height: 23,
+    width: 30
   },
   'TOP_DOWN_4': {
-    x: 131,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 278,
+    y: 58,
+    height: 23,
+    width: 30
   },
   'DOWN_TOP_4': {
-    x: 131,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 278,
+    y: 282,
+    height: 23,
+    width: 30
   },
   'LEFT_RIGHT_5': {
-    x: 48,
-    y: 129,
-    height: 60,
-    width: 48
+    x: 87,
+    y: 93,
+    height: 30,
+    width: 23
   },
   'RIGHT_LEFT_5': {
-    x: 551,
-    y: 129,
-    height: 60,
-    width: 48
+    x: 313,
+    y: 93,
+    height: 30,
+    width: 23
   },
   'LEFT_RIGHT_6': {
-    x: 48,
-    y: 241,
-    height: 60,
-    width: 48
+    x: 87,
+    y: 144,
+    height: 30,
+    width: 23
   },
   'RIGHT_LEFT_6': {
-    x: 551,
-    y: 241,
-    height: 60,
-    width: 48
+    x: 313,
+    y: 144,
+    height: 30,
+    width: 23
   },
   'LEFT_RIGHT_7': {
-    x: 48,
-    y: 357,
-    height: 60,
-    width: 48
+    x: 87,
+    y: 196,
+    height: 30,
+    width: 23
   },
   'RIGHT_LEFT_7': {
-    x: 551,
-    y: 357,
-    height: 60,
-    width: 48
+    x: 313,
+    y: 196,
+    height: 30,
+    width: 23
   },
   'LEFT_RIGHT_8': {
-    x: 48,
-    y: 470,
-    height: 60,
-    width: 48
+    x: 87,
+    y: 247,
+    height: 30,
+    width: 23
   },
   'RIGHT_LEFT_8': {
-    x: 551,
-    y: 470,
-    height: 60,
-    width: 48
+    x: 313,
+    y: 247,
+    height: 30,
+    width: 23
   },
 };
 
@@ -152,8 +152,8 @@ onMounted(() =>{
 
   const config: GameConfig = {
     type: Phaser.CANVAS,
-    width: 600,
-    height: 600,
+    width: 400,
+    height: 300,
     parent: 'phaser',
     transparent: true,
     scale: {
@@ -165,8 +165,8 @@ onMounted(() =>{
         this.load.image('area', 'img/matching_platform_complete.png');
       },
       create: function () {
-        area = this.add.image(600 / 2, 600 / 2, 'area');
-        area.setScale(0.4);
+        area = this.add.image(400 / 2, 300 / 2 + 20, 'area');
+        area.setScale(0.18);
         area.setRotation(Math.PI);
 
         // region wall positions
@@ -208,7 +208,7 @@ onMounted(() =>{
 
           this.add.rectangle(x, y, dimensions, dimensions, platforms[index]);
         }
-        this.add.text(600 / 2, 15, 'Passende Plattform', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+        this.add.text(420 / 2, 12, 'Passende Plattform', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();
         this.input.setTopOnly(true);

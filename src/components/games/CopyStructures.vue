@@ -1,9 +1,9 @@
 <template>
-  <div class="inline-block w-100">
-    <h1 class="text-center w-100 text-light">Konstrukt kopieren</h1>
-    <div class="flex flex-evenly gap-50px-5px">
+  <div class="inline-block w-full">
+    <h1 class="text-center text-light mb-10 text-3xl">Konstrukt kopieren</h1>
+    <div class="grid grid-cols-3 gap-30px-20px justify-center">
       <button v-for="structure in gameData.structures" @click="vote(structure.name)" :disabled="voted === structure.name">
-        <figure>
+        <figure class="flex flex-col items-center gap-1">
           <img :src="`img/structures/${structure.image}.webp`" :alt="structure.name" />
           <figcaption class="text-center w-100 text-light">{{ structure.name }}</figcaption>
         </figure>

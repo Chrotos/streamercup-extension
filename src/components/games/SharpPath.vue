@@ -25,124 +25,124 @@ const selectedFillStyle = {
 
 const wallPositions: { [key in SharpPathWall]: { x: number, y: number, height: number, width: number } } = {
   [SharpPathWall.TOP_DOWN_1]: {
-    x: 473,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 282,
+    y: 50,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.DOWN_TOP_1]: {
-    x: 473,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 282,
+    y: 290,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.TOP_DOWN_2]: {
-    x: 388,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 242,
+    y: 50,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.DOWN_TOP_2]: {
-    x: 388,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 242,
+    y: 290,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.TOP_DOWN_3]: {
-    x: 300,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 200,
+    y: 50,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.DOWN_TOP_3]: {
-    x: 300,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 200,
+    y: 290,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.TOP_DOWN_4]: {
-    x: 216,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 160,
+    y: 50,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.DOWN_TOP_4]: {
-    x: 216,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 160,
+    y: 290,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.TOP_DOWN_5]: {
-    x: 130,
-    y: 48,
-    height: 48,
-    width: 60
+    x: 119,
+    y: 50,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.DOWN_TOP_5]: {
-    x: 130,
-    y: 552,
-    height: 48,
-    width: 60
+    x: 119,
+    y: 290,
+    height: 22,
+    width: 30
   },
   [SharpPathWall.LEFT_RIGHT_6]: {
-    x: 48,
-    y: 129,
-    height: 60,
-    width: 48
+    x: 80,
+    y: 89,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.RIGHT_LEFT_6]: {
-    x: 551,
-    y: 129,
-    height: 60,
-    width: 48
+    x: 320,
+    y: 89,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.LEFT_RIGHT_7]: {
-    x: 48,
-    y: 214,
-    height: 60,
-    width: 48
+    x: 80,
+    y: 129,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.RIGHT_LEFT_7]: {
-    x: 551,
-    y: 214,
-    height: 60,
-    width: 48
+    x: 320,
+    y: 129,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.LEFT_RIGHT_8]: {
-    x: 48,
-    y: 300,
-    height: 60,
-    width: 48
+    x: 80,
+    y: 170,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.RIGHT_LEFT_8]: {
-    x: 551,
-    y: 300,
-    height: 60,
-    width: 48
+    x: 320,
+    y: 170,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.LEFT_RIGHT_9]: {
-    x: 48,
-    y: 387,
-    height: 60,
-    width: 48
+    x: 80,
+    y: 211,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.RIGHT_LEFT_9]: {
-    x: 551,
-    y: 387,
-    height: 60,
-    width: 48
+    x: 320,
+    y: 211,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.LEFT_RIGHT_10]: {
-    x: 48,
-    y: 474,
-    height: 60,
-    width: 48
+    x: 80,
+    y: 252,
+    height: 30,
+    width: 22
   },
   [SharpPathWall.RIGHT_LEFT_10]: {
-    x: 551,
-    y: 474,
-    height: 60,
-    width: 48
+    x: 320,
+    y: 252,
+    height: 30,
+    width: 22
   }
 }
 
@@ -169,8 +169,8 @@ onMounted(() => {
 
   const config: GameConfig = {
     type: Phaser.CANVAS,
-    width: 600,
-    height: 600,
+    width: 400,
+    height: 300,
     parent: 'phaser',
     transparent: true,
     scale: {
@@ -182,8 +182,8 @@ onMounted(() => {
         this.load.image('area', 'img/sharp_path_complete.png');
       },
       create: function () {
-        area = this.add.image(600 / 2, 600 / 2, 'area');
-        area.setScale(0.4);
+        area = this.add.image(400 / 2, 300 / 2 + 20, 'area');
+        area.setScale(0.19);
         area.setRotation(Math.PI);
 
         walls.forEach((wall, index) => {
@@ -222,7 +222,7 @@ onMounted(() => {
             }
           }
         })
-        this.add.text(600 / 2, 30, 'Scharfe Schneise', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+        this.add.text(400 / 2, 15, 'Scharfe Schneise', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();
         this.input.setTopOnly(true);

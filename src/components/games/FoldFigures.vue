@@ -1,7 +1,7 @@
 <template>
-  <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Figuren falten</h1>
-    <table style="margin: auto; width: 50%">
+  <div class="flex flex-col gap-8">
+    <h1 class="text-center text-3xl">Figuren falten</h1>
+    <table>
       <tr>
         <!-- Upper Left = empty -->
         <td />

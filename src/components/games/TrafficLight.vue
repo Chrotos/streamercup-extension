@@ -32,61 +32,61 @@ const selectedFillStyle = {
 const bridgePositions = [
   {
     x: 60,
-    y: 45,
+    y: 95,
     height: 23,
     width: 60
   },
   {
     x: 60,
-    y: 150,
+    y: 200,
     height: 23,
     width: 82
   },
   {
     x: 160,
-    y: 55,
+    y: 105,
     height: 23,
     width: 82
   },
   {
     x: 198,
-    y: 140,
+    y: 190,
     height: 23,
     width: 70
   },
   {
     x: 302,
-    y: 35,
+    y: 85,
     height: 23,
     width: 70
   },
   {
     x: 285,
-    y: 158,
+    y: 208,
     height: 23,
     width: 70
   },
   {
     x: 450,
-    y: 45,
+    y: 95,
     height: 23,
     width: 67
   },
   {
     x: 420,
-    y: 150,
+    y: 200,
     height: 23,
     width: 82
   },
   {
     x: 556,
-    y: 65,
+    y: 115,
     height: 23,
     width: 70
   },
   {
     x: 553,
-    y: 132,
+    y: 182,
     height: 23,
     width: 72
   },

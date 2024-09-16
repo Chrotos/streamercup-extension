@@ -1,11 +1,11 @@
 <template>
-  <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Simon Says</h1>
-    <div style="margin: auto; width: 60%">
+  <div class="flex flex-col gap-8" >
+    <h1 class="text-center text-3xl">Simon Says</h1>
+    <div class="flex gap-4">
       <button v-for="condition in gameData.conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
-        <figure>
+        <figure class="flex flex-col gap-3 items-center">
           <img :src="`img/${condition.icon}.png`" :alt="String(condition.name)" :data-disabled="voted === condition.name" />
-          <figcaption style="text-align: center; width: 100%">{{ condition.name }}</figcaption>
+          <figcaption>{{ condition.name }}</figcaption>
         </figure>
       </button>
     </div>

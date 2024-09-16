@@ -86,7 +86,6 @@ import { storeToRefs } from 'pinia'
 import { useConfigStore } from '@/stores/configuration'
 import { GameID, Phase } from '@/types'
 import VotingNew from '@/components/voting/VotingNew.vue'
-import moment from 'moment'
 import PotionPanic from '@/components/games/PotionPanic.vue'
 import EnergyEntropy from '@/components/games/EnergyEntropy.vue'
 import TreasureHunter from '@/components/games/TreasureHunter.vue'
@@ -94,6 +93,7 @@ import RapidCurrent from '@/components/games/RapidCurrent.vue'
 import BeatTheBeast from '@/components/games/BeatTheBeast.vue'
 import MonsterSlaughter from '@/components/games/MonsterSlaughter.vue'
 import HallwayHaste from '@/components/games/HallwayHaste.vue'
+import { SweetsCatcherConditionType } from '@/types/sweetsCatcher'
 
 
 const state = useStateStore()
@@ -112,33 +112,9 @@ onMounted(() => {
   /*
   setTimeout(() => {
     phase.value = Phase.Game
-    gameId.value = GameID.Monster_Metzeln
+    gameId.value = GameID.Kombi_Kanone
     gameData.value = {
-      bossNames: ['Illusionsmeister', 'Allsehendes Auge'],
-      arenaEffects: [
-        {
-          name: 'Pfeile',
-          image: 'arrow',
-        },
-        {
-          name: 'Effekt',
-          image: 'Potion',
-        }
-      ],
-      shopEffects: [
-        {
-          name: '-15 Sek. Shopzeit',
-          image: 'clock',
-        },
-        {
-          name: 'Rabatt',
-          image: 'arrow_down',
-        },
-        {
-          name: 'Aufpreis',
-          image: 'arrow_up',
-        }
-      ]
+      active: true
     }
   }, 1000)
   */

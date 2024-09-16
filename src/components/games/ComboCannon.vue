@@ -11,7 +11,7 @@ import { useConfigStore } from '@/stores/configuration'
 import { useExtensionStore } from '@/stores/extension'
 
 const diceDimension = 150;
-const diceFactor = diceDimension / 64;
+const diceFactor = diceDimension / 128;
 //const diceY = 480 / 2;
 //const diceX = 600 / 2 //- diceDimension / 2;
 //const diceY = 480 / 2 //- diceDimension / 2;
@@ -31,9 +31,10 @@ onMounted(() => {
 
   const config: GameConfig = {
     type: Phaser.CANVAS,
-    width: 600,
-    height: 480,
+    width: 400,
+    height: 300,
     parent: 'phaser',
+    transparent: true,
     scale: {
       mode: Phaser.Scale.FIT
     },
@@ -47,14 +48,14 @@ onMounted(() => {
 
       create: function () {
         for (let i = 0; i < 4; i++) {
-          let diceX = 180 + (600 - 100) / 2 * (i % 2);
-          let diceY = 160 + (480 - 120) / 2 * (Math.floor(i / 2));
+          let diceX = 75 + (600 - 100) / 2 * (i % 2);
+          let diceY = 70 + (480 - 120) / 2 * (Math.floor(i / 2));
           dices.push(this.add.image(diceX, diceY, String(currentDiceNumbers[i])).setScale(diceFactor));
         }
 
-        this.add.text(600 / 2, 30, 'Kombi-Kanone', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
+        this.add.text(400 / 2, 10, 'Kombi-Kanone', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
-        let button = this.add.text(600 / 2, 480 / 2, 'Werfen!', {font: '35px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5).setInteractive();
+        let button = this.add.text(400 / 2, 300 / 2, 'Werfen!', {font: '35px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5).setInteractive();
         button.on('pointerup', function () {
           rolled = true;
           button.destroy();
