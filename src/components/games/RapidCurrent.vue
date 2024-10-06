@@ -2,10 +2,10 @@
   <div style="display: inline-block; width: 100%">
     <h1 style="width: 100%; text-align: center">Schnelle Ströhmung</h1>
     <div style="margin: auto; width: 60%">
-      <button v-for="condition in gameData.conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
+      <button v-for="condition in gameData.conditions" v-bind:key="condition.display_name" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure>
           <img :src="`img/${condition.icon}.png`" :alt="String(condition.name)" :data-disabled="voted === condition.name" />
-          <figcaption style="text-align: center; width: 100%">{{ condition.name }}</figcaption>
+          <figcaption style="text-align: center; width: 100%">{{ condition.display_name }}</figcaption>
         </figure>
       </button>
     </div>

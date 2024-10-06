@@ -6,6 +6,7 @@ export enum SweetsCatcherConditionType {
 
 export interface SweetsCatcherCondition {
   name: SweetsCatcherConditionType
+  display_name: string
   icon: string
 }
 

@@ -1,12 +1,13 @@
 export enum RadiusEraserConditionType {
-  Null,
-  Faster,
-  Slowness,
-  Speed
+  Null = 'Null',
+  Faster = 'Faster',
+  Slowness = 'Slowness',
+  Speed = 'Speed'
 }
 
 export interface RadiusEraserCondition {
   name: RadiusEraserConditionType
+  display_name: string
   icon: string
 }
 

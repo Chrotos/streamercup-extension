@@ -1,5 +1,6 @@
 export interface CopyStructuresStructure {
-  name: string // TODO separate id and translation
+  name: string
+  display_name: string
   image: number
 }
 

@@ -7,6 +7,7 @@ export enum TimeCounterConditionType {
 
 export interface TimeCounterCondition {
   name: TimeCounterConditionType
+  display_name: string
   icon: string
 }
 

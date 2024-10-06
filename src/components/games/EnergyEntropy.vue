@@ -10,10 +10,10 @@
             }, {
               'hover:bg-twitch-selected' : voted !== 1
             }]" @click="vote(1)">
-              <div class="flex flex-col items-center gap-4">
+              <div class="flex flex-col items-center gap-4 select-none">
                 <img :src="'img/wrench-solid.svg'" class="invert w-16" />
                 <div>
-                  Issues
+                  Defekt
                 </div>
               </div>
             </button>
@@ -24,10 +24,10 @@
             }, {
               'hover:bg-twitch-selected' : voted !== 3
             }]" @click="vote(3)">
-              <div class="flex flex-col items-center gap-4">
+              <div class="flex flex-col items-center gap-4 select-none">
                 <img :src="'img/bucket-solid.svg'" class="invert w-16" />
                 <div>
-                  Wet Floor
+                  Nasser Boden
                 </div>
               </div>
             </button>
@@ -45,10 +45,10 @@
             }, {
               'hover:bg-twitch-selected' : voted !== 2
             }]" @click="vote(2)">
-              <div class="flex flex-col items-center gap-4">
+              <div class="flex flex-col items-center gap-4 select-none">
                 <img :src="'img/house-crack-solid.svg'" class="invert w-16" />
                 <div>
-                  Quake
+                  Erdbeben
                 </div>
               </div>
             </button>
@@ -59,10 +59,10 @@
             }, {
               'hover:bg-twitch-selected' : voted !== 4
             }]" @click="vote(4)">
-              <div class="flex flex-col items-center gap-4">
+              <div class="flex flex-col items-center gap-4 select-none">
                 <img :src="'img/clock-solid.svg'" class="invert w-16" />
                 <div>
-                  Overtime
+                  Turbo
                 </div>
               </div>
             </button>

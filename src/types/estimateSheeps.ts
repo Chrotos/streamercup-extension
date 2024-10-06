@@ -1,12 +1,13 @@
 export enum EstimateSheepsConditionType {
-  Null,
-  Leap,
-  Speed,
-  Blindness
+  Null = 'Null',
+  Leap = 'Leap',
+  Speed = 'Speed',
+  Blindness = 'Blindness',
 }
 
 export interface EstimateSheepsCondition {
   name: EstimateSheepsConditionType
+  display_name: string
   icon: string
 }
 

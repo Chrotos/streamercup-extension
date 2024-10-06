@@ -93,7 +93,6 @@ import RapidCurrent from '@/components/games/RapidCurrent.vue'
 import BeatTheBeast from '@/components/games/BeatTheBeast.vue'
 import MonsterSlaughter from '@/components/games/MonsterSlaughter.vue'
 import HallwayHaste from '@/components/games/HallwayHaste.vue'
-import { SweetsCatcherConditionType } from '@/types/sweetsCatcher'
 
 
 const state = useStateStore()
@@ -109,10 +108,11 @@ const authenticated = computed(() => !!userId.value)
 
 onMounted(() => {
   // TODO remove demo data
+
   /*
   setTimeout(() => {
     phase.value = Phase.Game
-    gameId.value = GameID.Kombi_Kanone
+    gameId.value = GameID.Energie_Entropie
     gameData.value = {
       active: true
     }

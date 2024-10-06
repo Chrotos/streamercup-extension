@@ -6,6 +6,7 @@ export enum SimonSaysConditionType {
 
 export interface SimonSaysCondition {
   name: SimonSaysConditionType
+  display_name: string
   icon: string
 }
 

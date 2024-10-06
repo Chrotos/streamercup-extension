@@ -2,10 +2,10 @@
   <div style="display: inline-block; width: 100%">
     <h1 style="width: 100%; text-align: center">Schatz-Sammler</h1>
     <div style="margin: auto; width: 60%">
-      <button v-for="condition in gameData.conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
+      <button v-for="condition in gameData.conditions" v-bind:key="condition.name" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure>
           <img :src="`img/${condition.icon}.png`" :alt="String(condition.name)" :data-disabled="voted === condition.name" />
-          <figcaption style="text-align: center; width: 100%">{{ condition.name }}</figcaption>
+          <figcaption style="text-align: center; width: 100%">{{ condition.display_name }}</figcaption>
         </figure>
       </button>
     </div>
@@ -40,7 +40,7 @@ function vote(condition: TreasureHunterConditionType) {
       return;
     }
 
-    voted.value = 0;
+    voted.value = TreasureHunterConditionType.Null;
   })
 }
 </script>

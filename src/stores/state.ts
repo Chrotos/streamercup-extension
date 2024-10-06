@@ -27,6 +27,7 @@ import type { RapidCurrentData } from '@/types/rapidCurrent'
 import type { BeatTheBeastData } from '@/types/beatTheBeast'
 import type { MonsterSlaughterData } from '@/types/monsterSlaughter'
 import type { HallwayHasteData } from '@/types/hallwayHaste'
+import type { CollectSheepsData } from '@/types/collectSheeps'
 
 export const useStateStore = defineStore('state', () => {
     const config = useConfigStore()
@@ -65,9 +66,9 @@ export const useStateStore = defineStore('state', () => {
             case 'sheep':
                 gameData.value = message
 
-                if ((gameData.value as EstimateSheepsData)?.conditions?.length > 0) {
+                if ((gameData.value as CollectSheepsData)?.gates?.length > 0) {
                     phase.value = Phase.Game
-                    gameId.value = GameID.Schaefchen_schaetzen
+                    gameId.value = GameID.Schafe_sammeln
                 } else {
                     phase.value = Phase.Pause
                 }

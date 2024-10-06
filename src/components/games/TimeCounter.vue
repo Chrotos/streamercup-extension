@@ -2,10 +2,10 @@
   <div class="flex flex-col items-center gap-8">
     <h1 class="text-center text-3xl">Zeit-Zähler</h1>
     <div class="flex gap-4 items-center">
-      <button v-for="condition in gameData.conditions" @click="vote(condition.name)" :disabled="voted === condition.name">
+      <button v-for="condition in gameData.conditions" v-bind:key="condition.name" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure class="flex flex-col items-center gap-3">
           <img :src="`img/${condition.icon}.png`" :alt="String(condition.name)" :data-disabled="voted === condition.name" />
-          <figcaption>{{ condition.name }}</figcaption>
+          <figcaption>{{ condition.display_name }}</figcaption>
         </figure>
       </button>
     </div>

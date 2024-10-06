@@ -8,6 +8,7 @@ export enum RapidCurrentConditionType {
 
 export interface RapidCurrentCondition {
   name: RapidCurrentConditionType
+  display_name: string
   icon: string
 }
 

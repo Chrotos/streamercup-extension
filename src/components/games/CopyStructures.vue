@@ -2,10 +2,10 @@
   <div class="inline-block w-full">
     <h1 class="text-center text-light mb-10 text-3xl">Konstrukt kopieren</h1>
     <div class="grid grid-cols-3 gap-30px-20px justify-center">
-      <button v-for="structure in gameData.structures" @click="vote(structure.name)" :disabled="voted === structure.name">
+      <button v-for="structure in gameData.structures" v-bind:key="structure.name" @click="vote(structure.name)" :disabled="voted === structure.name">
         <figure class="flex flex-col items-center gap-1">
           <img :src="`img/structures/${structure.image}.webp`" :alt="structure.name" />
-          <figcaption class="text-center w-100 text-light">{{ structure.name }}</figcaption>
+          <figcaption class="text-center w-100 text-light">{{ structure.display_name }}</figcaption>
         </figure>
       </button>
     </div>
