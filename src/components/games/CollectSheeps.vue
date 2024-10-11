@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import * as Phaser from 'phaser';
 import { useConfigStore } from '@/stores/configuration'
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Pointer = Phaser.Input.Pointer
 import Rectangle = Phaser.GameObjects.Rectangle
 import { useExtensionStore } from '@/stores/extension'
@@ -109,6 +109,7 @@ onMounted(() => {
           clickables.push(clickable);
         })
 
+        // @ts-ignore
         this.add.text(350 / 2, 300 / 2, 'Schafe sammeln', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();

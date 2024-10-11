@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import * as Phaser from 'phaser';
 import { onBeforeUnmount, onMounted } from 'vue'
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Image = Phaser.GameObjects.Image
 import { useConfigStore } from '@/stores/configuration'
 import { useExtensionStore } from '@/stores/extension'
@@ -53,8 +53,10 @@ onMounted(() => {
           dices.push(this.add.image(diceX, diceY, String(currentDiceNumbers[i])).setScale(diceFactor));
         }
 
+        // @ts-ignore
         this.add.text(400 / 2, 10, 'Kombi-Kanone', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
+        // @ts-ignore
         let button = this.add.text(400 / 2, 300 / 2, 'Werfen!', {font: '35px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5).setInteractive();
         button.on('pointerup', function () {
           rolled = true;

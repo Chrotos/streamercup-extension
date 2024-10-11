@@ -15,5 +15,3 @@
   height: calc(100% - 2px);
 }
 </style>
-<script setup>
-</script>

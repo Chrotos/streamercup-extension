@@ -4,12 +4,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const {branding} = defineProps({
   branding: String
 })
 </script>
-
-<style scoped>
-
-</style>

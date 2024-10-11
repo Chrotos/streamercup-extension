@@ -9,7 +9,7 @@ import { useConfigStore } from '@/stores/configuration'
 import { useStateStore } from '@/stores/state'
 import type { PuzzlePortraitData } from '@/types/puzzlePortrait'
 import { useExtensionStore } from '@/stores/extension'
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Pointer = Phaser.Input.Pointer
 import { storeToRefs } from 'pinia'
 
@@ -71,6 +71,7 @@ onMounted(() => {
           zone.slot = index + 1;
           zones.push(zone);
 
+          // @ts-ignore
           this.add.text(zoneX, zoneY, index + 1, {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
           let graphics = this.add.graphics();
@@ -84,6 +85,7 @@ onMounted(() => {
 
           this.input.setDraggable(card);
         })
+        // @ts-ignore
         this.add.text(400 / 2, 30, 'Puzzle-Porträt', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         cards.forEach(card => this.children.bringToTop(card));

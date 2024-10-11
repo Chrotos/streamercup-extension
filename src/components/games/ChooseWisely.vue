@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import * as Phaser from 'phaser';
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Rectangle = Phaser.GameObjects.Rectangle
 import { useConfigStore } from '@/stores/configuration'
 import { useExtensionStore } from '@/stores/extension'
@@ -76,7 +76,7 @@ onMounted(() => {
         area = this.add.image(300 / 2, 300 / 2, 'area');
         area.setScale(0.12);
 
-        platforms.forEach((platform) => {
+        platforms.forEach((platform: number) => {
           if (platformPositions[platform - 1]) {
             let platformPosition = platformPositions[platform - 1];
 
@@ -89,6 +89,7 @@ onMounted(() => {
             }
           }
         })
+        // @ts-ignore
         this.add.text(300 / 2, 30, 'Wähle Weise', {font: '40px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();

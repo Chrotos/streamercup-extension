@@ -1,8 +1,10 @@
 import axios from 'axios'
 import {defineStore} from "pinia";
 import { ref } from 'vue'
-import Authorized = Twitch.ext.Authorized
-import Context = Twitch.ext.Context
+// @ts-ignore
+type Authorized = Twitch.ext.Authorized
+// @ts-ignore
+type Context = Twitch.ext.Context
 import { useStateStore } from '@/stores/state'
 import { useConfigStore } from '@/stores/configuration'
 
@@ -36,6 +38,7 @@ export const useExtensionStore = defineStore('extension', () => {
     const axiosInstance = ref(axios)
     axiosInstance.value.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
+    // @ts-ignore
     const twitch = ref<any>(window.Twitch ? window.Twitch.ext : null)
 
     const channelId = ref<string|null>()

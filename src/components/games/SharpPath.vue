@@ -10,7 +10,7 @@ import { useStateStore } from '@/stores/state'
 import { storeToRefs } from 'pinia'
 import { useExtensionStore } from '@/stores/extension'
 import { type SharpPathData, SharpPathWall } from '@/types/sharpPath'
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Rectangle = Phaser.GameObjects.Rectangle
 import Pointer = Phaser.Input.Pointer
 
@@ -222,6 +222,7 @@ onMounted(() => {
             }
           }
         })
+        // @ts-ignore
         this.add.text(400 / 2, 15, 'Scharfe Schneise', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();

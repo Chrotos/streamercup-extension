@@ -32,8 +32,14 @@
 import type { VoteOption } from '@/types'
 import { useStateStore } from '@/stores/state'
 import { storeToRefs } from 'pinia'
+import type { PropType } from 'vue'
 
-const option: VoteOption = defineModel<VoteOption>()
+const { option } = defineProps({
+  option: {
+    required: true,
+    type: Object as PropType<VoteOption>
+  }
+})
 
 const state = useStateStore()
 const { voted } = storeToRefs(state)

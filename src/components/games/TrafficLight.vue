@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import * as Phaser from 'phaser';
 import { onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Rectangle = Phaser.GameObjects.Rectangle
 import Pointer = Phaser.Input.Pointer
 import { useConfigStore } from '@/stores/configuration'
@@ -118,6 +118,7 @@ onMounted(() => {
     type: Phaser.CANVAS,
     width: 600,
     height: 300,
+    // @ts-ignore
     canvas: phaser.value,
     transparent: true,
     scale: {

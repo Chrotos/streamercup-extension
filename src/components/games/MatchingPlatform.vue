@@ -12,7 +12,7 @@ import type { ChooseWiselyData } from '@/types/chooseWisely'
 import { useExtensionStore } from '@/stores/extension'
 import type { MatchingPlatformData } from '@/types/matchingPlatform'
 import Rectangle = Phaser.GameObjects.Rectangle
-import GameConfig = Phaser.Types.Core.GameConfig
+type GameConfig = Phaser.Types.Core.GameConfig
 import Pointer = Phaser.Input.Pointer
 
 declare type Clickable = Rectangle & {
@@ -37,49 +37,49 @@ const platform = {
 
 const wallPositions = {
   'TOP_DOWN_1': {
-    x: 124,
+    x: 278, // 278
     y: 58,
     height: 23,
     width: 30
   },
   'DOWN_TOP_1': {
-    x: 124,
+    x: 278, // 278
     y: 282,
     height: 23,
     width: 30
   },
   'TOP_DOWN_2': {
-    x: 174,
+    x: 227, // 227
     y: 58,
     height: 23,
     width: 30
   },
   'DOWN_TOP_2': {
-    x: 174,
+    x: 227, // 227
     y: 282,
     height: 23,
     width: 30
   },
   'TOP_DOWN_3': {
-    x: 227,
+    x: 174,  // 174
     y: 58,
     height: 23,
     width: 30
   },
   'DOWN_TOP_3': {
-    x: 227,
+    x: 174, // 174
     y: 282,
     height: 23,
     width: 30
   },
   'TOP_DOWN_4': {
-    x: 278,
+    x: 124, // 124
     y: 58,
     height: 23,
     width: 30
   },
   'DOWN_TOP_4': {
-    x: 278,
+    x: 124, // 124
     y: 282,
     height: 23,
     width: 30
@@ -208,11 +208,13 @@ onMounted(() =>{
 
           this.add.rectangle(x, y, dimensions, dimensions, platforms[index]);
         }
+        // @ts-ignore
         this.add.text(420 / 2, 12, 'Passende Plattform', {font: '30px Arial', fill: '#FFFFFF', align: "center"}).setOrigin(0.5, 0.5);
 
         this.input.setPollOnMove();
         this.input.setTopOnly(true);
         this.input.on('gameobjectover', function (pointer: Pointer, gameObject: Clickable) {
+          // @ts-ignore
           if (gameObject.selected) {
             return;
           }
@@ -223,6 +225,7 @@ onMounted(() =>{
         })
 
         this.input.on('gameobjectout', function (pointer: Pointer, gameObject: Clickable) {
+          // @ts-ignore
           if (gameObject.selected) {
             return;
           }
@@ -237,15 +240,18 @@ onMounted(() =>{
             // unselect old one
             clickables.forEach(clickable => {
               clickable.setFillStyle(defaultFillStyle.color, defaultFillStyle.alpha);
+              // @ts-ignore
               clickable.selected = false;
             })
 
             let id = gameObject.wall;
             axios.post(apiUrl + id).catch(error => {
               gameObject.setFillStyle(defaultFillStyle.color, defaultFillStyle.alpha);
+              // @ts-ignore
               gameObject.selected = false;
             });
             gameObject.setFillStyle(selectedFillStyle.color, selectedFillStyle.alpha);
+            // @ts-ignore
             gameObject.selected = true;
           }
         })

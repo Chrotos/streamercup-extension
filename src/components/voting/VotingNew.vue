@@ -11,7 +11,7 @@
 
     <div class="flex justify-evenly">
       <template v-for="option in voteData?.options" v-bind:key="option.game_id">
-        <voting-card class="w-[20ch] pt-2" v-bind:model-value="option" @click="vote(option.game_id)"></voting-card>
+        <voting-card class="w-[20ch] pt-2" :option="option" @click="vote(option.game_id)"></voting-card>
       </template>
     </div>
   </div>
