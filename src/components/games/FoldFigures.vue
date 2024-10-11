@@ -77,40 +77,6 @@ function vote (condition: number) {
     voted.value = 0;
   });
 }
-
-/*
-export default {
-
-  name: 'FoldFigures',
-  data() {
-    return {
-      voted: 0
-    }
-  },
-
-  mixins: [
-      Configuration
-  ],
-
-  mounted() {
-
-  },
-
-  methods: {
-    vote (condition) {
-      this.voted = condition;
-      this.$http.post(this.getApiUrl(`game/35/${condition}`)).catch(error => {
-        if (error.response?.status === 409) {
-          this.voted = condition;
-          return;
-        }
-
-        this.voted = null;
-      });
-    },
-  }
-}
- */
 </script>
 
 <style scoped>

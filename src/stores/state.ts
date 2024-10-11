@@ -355,5 +355,5 @@ export const useStateStore = defineStore('state', () => {
         return new URLSearchParams(queryString)
     }
 
-    return {voted, countDown, theme, platform, phase, gameId, gameData, voteData, /*processStateMessage,*/ contextUpdate, connectSocket}
+    return {voted, countDown, theme, platform, phase, gameId, gameData, voteData, contextUpdate, connectSocket}
 });

@@ -52,36 +52,6 @@ function vote(condition: number) {
 </script>
 
 <style scoped>
-/*
-table {
-  width: 100%;
-}
-td {
-  width: 100px;
-}
-tr {
-  width: 100px;
-}
-
-figure {
-  margin: 0;
-}
-
-img {
-  border: 0;
-  width: 100px;
-  padding: 0
-}
-
-button {
-  width: 100px;
-  height: 100px;
-  padding: 0;
-  border: 0;
-  background: none
-}
-*/
-
 button:hover, button:disabled {
   -webkit-filter: brightness(150%);
   filter: brightness(150%);
