@@ -32,7 +32,8 @@ export default defineConfig({
     rollupOptions: {
       input: [
         resolve(__dirname, 'video_component.html'),
-        resolve(__dirname, 'mobile.html')
+        resolve(__dirname, 'mobile.html'),
+        resolve(__dirname, 'config.html')
       ]
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Schnelle Ströhmung</h1>
+    <h1 class="text-center text-3xl">Schnelle Strömung</h1>
     <div style="margin: auto; width: 60%">
       <button v-for="condition in gameData.conditions" v-bind:key="condition.display_name" @click="vote(condition.name)" :disabled="voted === condition.name">
         <figure>

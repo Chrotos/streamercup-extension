@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center gap-8">
     <h1 class="text-center text-3xl">Schollen-Schubser</h1>
-    <div class="flex gap-4">
+    <div class="flex flex-wrap gap-4 justify-center">
       <button v-for="player in gameData.players" @click="vote(player.id)" :disabled="voted === player.id">
         <img :src="player.avatar" :data-disabled="voted === player.id" />
       </button>

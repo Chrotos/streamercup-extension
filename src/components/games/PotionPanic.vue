@@ -8,7 +8,7 @@
         <div class="w-20">
           <img class="rounded-full shadow-[0px_0px_20px_0px] shadow-zinc-600 object-cover" :src="gameData.player.avatar" alt="" />
         </div>
-        <div class="flex flex-evenly ml-7 mr-7 gap-3 pb-4">
+        <div class="flex flex-evenly ml-7 mr-7 gap-2 pb-4 flex-wrap justify-center">
           <template v-for="potion in gameData.potions" :key="potion.id">
             <div :class="['cursor-pointer border-2 bg-light w-14 h-14 flex', {
             'border-red-500 scale-105' : voted === potion.id

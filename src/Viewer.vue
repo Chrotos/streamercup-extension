@@ -41,13 +41,15 @@
         </template>
 
         <template v-else>
-          <div class="text-center inline vertical-center w-100 h-100">
-            <h2>
-              Identity Link Required
-            </h2>
-            <button style="background: none; border: none" id="link-button">
-              <img src="@/assets/img/login.png" alt="Link" height="120px" @click="extension.askForAuth"/>
-            </button>
+          <div class="flex flex-col items-center gap-10">
+            <div class="text-3xl">
+              Berechtigung erforderlich
+            </div>
+            <div class="w-1/3">
+              <button style="background: none; border: none" id="link-button">
+                <img src="@/assets/img/login.png" alt="Link" @click="extension.askForAuth"/>
+              </button>
+            </div>
           </div>
         </template>
       </div>
@@ -105,50 +107,6 @@ const {finishedLoading, userId} = storeToRefs(extension)
 
 const mainClassName = computed(() => `viewer ${theme.value} ${platform.value} bg-img h-full`)
 const authenticated = computed(() => !!userId.value)
-
-onMounted(() => {
-  // TODO remove demo data
-
-  /*
-  setTimeout(() => {
-    phase.value = Phase.Game
-    gameId.value = GameID.Energie_Entropie
-    gameData.value = {
-      active: true
-    }
-  }, 1000)
-  */
-
-  /*
-  setTimeout(() => {
-    phase.value = Phase.Voting
-
-    voteData.value = {
-      title: '! VOTING !',
-      end_date: moment().add(2, 'minutes'),
-      options: [
-        {
-          game_id: 'traffic_light',
-          name: 'Maulwurf Mutprobe',
-          description: 'Spieler können mit ihrem Knopf ihre Figur entweder herauskommen oder zurückziehen lassen. Der Spieler mit der meisten Zeit draußen gewinnt. Der Maulwurf versucht die Spieler zu eliminieren',
-          image_url: 'img/games/test.png',
-          votes: 10,
-          new: true
-        },
-        {
-          game_id: 'time_counter',
-          name: 'Passende Plattform',
-          description: 'Spieler versuchen so lange wie möglich auf den Plattformen zu bleiben. Alle Plattformen in einer anderen Farbe als auf der Tafel verschwinden nach einer random Zeit zu einem Ton.',
-          image_url: 'img/games/test.png',
-          votes: 4711,
-          new: false
-        }
-      ]
-    }
-  }, 1000)
-  */
-
-})
 
 </script>
 <style>

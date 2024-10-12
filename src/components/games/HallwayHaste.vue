@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline-block; width: 100%">
-    <h1 style="width: 100%; text-align: center">Hallway Haste</h1>
+    <h1 class="text-center text-3xl">Hallway Haste</h1>
     <div style="width: 100%">
       <button v-for="player in gameData.players" @click="vote(player.id)" :disabled="voted === player.id">
           <img :src="player.avatar" :data-disabled="voted === player.id" />

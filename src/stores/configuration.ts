@@ -5,7 +5,7 @@ export const useConfigStore = defineStore('config', () => {
     const branding = ref<string|null>(null) // Valid: twitch
 
     function getApiBaseUrl() {
-        return !isReview() /* && !isTesting()*/ ? 'https://streamercup-api.chrotos.net/api/' : 'https://streamercup-api-mock.chrotos.net/api/';
+        return !isReview() /*&& !isTesting()*/ ? 'https://streamercup-api.chrotos.net/api/' : 'https://streamercup-api-mock.chrotos.net/api/';
     }
 
     function getApiUrl(endpoint: string) {
@@ -59,9 +59,7 @@ export const useConfigStore = defineStore('config', () => {
             return
         }
 
-        //const broadcaster = config.broadcaster;
         const developer = config.developer;
-        //const global = config.global;
 
         if (developer?.content) {
             const developerJson = JSON.parse(developer.content);

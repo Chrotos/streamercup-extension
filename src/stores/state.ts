@@ -35,7 +35,6 @@ export const useStateStore = defineStore('state', () => {
 
     let pusher: Pusher|null = null
 
-    // TODO remove demo data
     const phase = ref<Phase>(Phase.Pause)
 
     const voteData = ref<null|VoteData>()
