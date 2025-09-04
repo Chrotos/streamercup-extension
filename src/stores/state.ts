@@ -2,8 +2,10 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { ContextData } from '@/stores/extension'
 import { useExtensionStore } from '@/stores/extension'
-import Pusher from 'pusher-js'
 import { useConfigStore } from '@/stores/configuration'
+import { Socket } from "socket.io-client"
+import { createSocket } from '@katzen48/hermes'
+import { type AuthenticationResult } from '@katzen48/hermes/types'
 import { type GameData, GameID, Phase, type VoteData } from '@/types'
 import type { EstimateSheepsData } from '@/types/estimateSheeps'
 import type { SoundSequenceData } from '@/types/soundSequence'
@@ -28,12 +30,15 @@ import type { BeatTheBeastData } from '@/types/beatTheBeast'
 import type { MonsterSlaughterData } from '@/types/monsterSlaughter'
 import type { HallwayHasteData } from '@/types/hallwayHaste'
 import type { CollectSheepsData } from '@/types/collectSheeps'
+import axios from 'axios'
 
 export const useStateStore = defineStore('state', () => {
     const config = useConfigStore()
     const extension = useExtensionStore()
 
-    let pusher: Pusher|null = null
+    const branding = ref<string|null>(null)
+
+    let socket: Socket|null
 
     const phase = ref<Phase>(Phase.Pause)
 
@@ -292,33 +297,34 @@ export const useStateStore = defineStore('state', () => {
                     phase.value = Phase.Pause
                 }
                 break;
+            case "state":
+                voted.value = message.voted;
+                break;
         }
     }
 
+    async function getSocketConfig(): Promise<AuthenticationResult> {
+        return (await axios.get("https://extension.streamercup.de/api/socket")).data
+    }
 
-    function connectSocket(userId: string|null) {
-        pusher = new Pusher(config.getSocketKey(), {
-            wsHost: config.getSocketHost(),
-            wsPort: config.getSocketPort(),
-            cluster: '',
-            forceTLS: false,
-            disableStats: true,
-            enabledTransports: ['ws', 'wss'],
-            channelAuthorization: {
-                transport: 'ajax',
-                endpoint: config.getSocketAuthorizationUrl(),
-                headers: {
-                    Authorization: extension.axios.defaults.headers.common.Authorization
-                }
-            },
-        });
+    async function connectSocket() {
+        socket = await createSocket(getSocketConfig)
 
+        /*
         if (userId) {
           pusher.subscribe('presence-' + userId).bind_global(onPrivateMessage);
           pusher.subscribe('cache-global').bind_global(processStateMessage);
         }
+         */
     }
 
+    async function configure() {
+        const configData = (await axios.get('https://extension.streamercup.de/api/configuration')).data
+
+        branding.value = configData.branding
+    }
+
+    /*
     function onPrivateMessage (messageName: string, message: any) {
         switch (messageName) {
             case "state":
@@ -326,6 +332,7 @@ export const useStateStore = defineStore('state', () => {
                 break;
         }
     }
+    */
 
     function contextUpdate (context: ContextData) {
         theme.value = context.context.theme
@@ -354,5 +361,5 @@ export const useStateStore = defineStore('state', () => {
         return new URLSearchParams(queryString)
     }
 
-    return {voted, countDown, theme, platform, phase, gameId, gameData, voteData, contextUpdate, connectSocket}
+    return {voted, countDown, theme, platform, phase, gameId, gameData, voteData, contextUpdate, connectSocket, configure, branding}
 });

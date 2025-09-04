@@ -15,6 +15,7 @@ window.Twitch.ext.onContext((context, delta) => {
     }
 })
 
+/*
 window.Twitch.ext.configuration.onChanged(() => {
     const config = {
         broadcaster: window.Twitch.ext.configuration.broadcaster,
@@ -28,3 +29,4 @@ window.Twitch.ext.configuration.onChanged(() => {
         window.configData = config
     }
 })
+*/

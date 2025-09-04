@@ -2,7 +2,7 @@ import {ref} from 'vue'
 import { defineStore } from 'pinia'
 
 export const useConfigStore = defineStore('config', () => {
-    const branding = ref<string|null>(null) // Valid: twitch
+    //const branding = ref<string|null>(null) // Valid: twitch
 
     function getApiBaseUrl() {
         return !isReview() /*&& !isTesting()*/ ? 'https://streamercup-api.chrotos.net/api/' : 'https://streamercup-api-mock.chrotos.net/api/';
@@ -54,6 +54,7 @@ export const useConfigStore = defineStore('config', () => {
         return new URLSearchParams(queryString);
     }
 
+    /*
     function configChanged(config: any) {
         if (!config) {
             return
@@ -66,6 +67,7 @@ export const useConfigStore = defineStore('config', () => {
             branding.value = developerJson?.branding?.toLocaleLowerCase() ?? '';
         }
     }
+     */
 
-    return {branding, getApiBaseUrl, getApiUrl, getSocketAuthorizationUrl, getSocketHost, getSocketPort, getSocketKey, isTesting, isApproved, isReview, getState, getQueryParams, configChanged}
+    return {/*branding,*/ getApiBaseUrl, getApiUrl, getSocketAuthorizationUrl, getSocketHost, getSocketPort, getSocketKey, isTesting, isApproved, isReview, getState, getQueryParams}
 })

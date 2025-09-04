@@ -101,8 +101,7 @@ const state = useStateStore()
 const extension = useExtensionStore()
 const config = useConfigStore()
 
-const {theme, platform, phase, gameId, gameData, voteData} = storeToRefs(state)
-const {branding} = storeToRefs(config)
+const {theme, platform, phase, gameId, gameData, voteData, branding} = storeToRefs(state)
 const {finishedLoading, userId} = storeToRefs(extension)
 
 const mainClassName = computed(() => `viewer ${theme.value} ${platform.value} bg-img h-full`)

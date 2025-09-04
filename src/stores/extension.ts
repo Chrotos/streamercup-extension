@@ -56,7 +56,8 @@ export const useExtensionStore = defineStore('extension', () => {
 
         if (!finishedLoading.value) {
             finishedLoading.value = true
-            state.connectSocket(userId.value)
+            state.connectSocket()
+            state.configure()
         }
     }
     window.authorized = onAuthorized
@@ -74,6 +75,7 @@ export const useExtensionStore = defineStore('extension', () => {
     }
 
     // Config Hook
+    /*
     function onConfigChanged(configData: Config) {
         config.configChanged(configData)
     }
@@ -81,6 +83,7 @@ export const useExtensionStore = defineStore('extension', () => {
     if (window.configData) {
         onConfigChanged(window.configData)
     }
+     */
 
     function setToken(accessToken: string, opaque_id: string) {
         let channel_id = '';
