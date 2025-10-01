@@ -310,6 +310,8 @@ export const useStateStore = defineStore('state', () => {
     async function connectSocket() {
         socket = await createSocket(getSocketConfig)
 
+        socket.onAny(processStateMessage)
+
         /*
         if (userId) {
           pusher.subscribe('presence-' + userId).bind_global(onPrivateMessage);

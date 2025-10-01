@@ -5,27 +5,11 @@ export const useConfigStore = defineStore('config', () => {
     //const branding = ref<string|null>(null) // Valid: twitch
 
     function getApiBaseUrl() {
-        return !isReview() /*&& !isTesting()*/ ? 'https://streamercup-api.chrotos.net/api/' : 'https://streamercup-api-mock.chrotos.net/api/';
+        return !isReview() /*&& !isTesting()*/ ? 'https://extension.streamercup.de/api/' : 'https://extension-mock.streamercup.de/api/';
     }
 
     function getApiUrl(endpoint: string) {
         return getApiBaseUrl() + endpoint;
-    }
-
-    function getSocketAuthorizationUrl() {
-        return getApiBaseUrl() + 'socket';
-    }
-
-    function getSocketHost() {
-        return 'streamercup-socket.chrotos.net';
-    }
-
-    function getSocketPort() {
-        return 6001;
-    }
-
-    function getSocketKey() {
-        return 'KEY';
     }
 
     function isTesting() {
@@ -69,5 +53,5 @@ export const useConfigStore = defineStore('config', () => {
     }
      */
 
-    return {/*branding,*/ getApiBaseUrl, getApiUrl, getSocketAuthorizationUrl, getSocketHost, getSocketPort, getSocketKey, isTesting, isApproved, isReview, getState, getQueryParams}
+    return {/*branding,*/ getApiUrl, isTesting, isApproved, isReview, getState, getQueryParams}
 })
